@@ -1,26 +1,14 @@
-from app_project import app, db, request
-from app_project.models import Users, Group_list
+from app_project import app, db, request, render_template, ltj
+from app_project.models import Users, Group_list, Event
 
 #--------------------DEFAULT ROUTE(MAIN PAGE)--------------------
-@app.route('/')
-def default_connection():
-    try:
-        users = db.session.execute(db.select(Users).order_by(Users.id)).scalars()
-        
-        users_text = '<ul>'
-        for user in users:
-            users_text += '<li>' + str(user.id) + '. ' + user.login + '</li>'
-        users_text += '</ul>'
-        return users_text
-    
-    except Exception as e:
-
-        error_text = "<p>The error:<br>" + str(e) + "</p>"
-        hed = '<h1>Something is broken.</h1>'
-        return hed + error_text
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def default_connection(path):
+    return render_template('index.html')
 
 #--------------------GET ALL USERS AND POST ANY AMOUNT OF USERS IN DB--------------------
-@app.route('/users', methods=['GET', 'POST'])
+@app.route('/api/users', methods=['GET', 'POST'])
 def handle_users():
     if request.method == 'POST':
         if request.is_json:
@@ -52,7 +40,7 @@ def handle_users():
         return {"count": len(results), "users": results}
 
 #--------------------GET ALL EXISTING IN DB GROUPS OR ADD NEW ONES--------------------
-@app.route('/grouplist', methods=['GET', 'POST'])
+@app.route('/api/grouplist', methods=['GET', 'POST'])
 def handle_grouplist():
     if request.method == 'POST':
         if request.is_json:
@@ -74,7 +62,7 @@ def handle_grouplist():
         return {"count": len(results), "groups": results}
 
 ##--------------------COMPARE POSTED USER WITH USERS THAT EXIST IN TABLE--------------------
-@app.route('/user_compare', methods=['POST'])
+@app.route('/api/user_compare', methods=['POST'])
 def handler_usercomp():
     if request.is_json:
         data = request.get_json()
@@ -93,3 +81,27 @@ def handler_usercomp():
                }
                return {"user": result}
         return {"error": "Login or password incorrect"} 
+    
+@app.route('/api/g_ret/<int:int_params>', methods=['GET'])
+def handler_g_ret(int_params):
+        group_list = Group_list.query.all()
+        for group in group_list:
+            if int_params == group.id:
+                results = {
+                        "id": group.id,
+                        "g_name": group.g_name
+                    }
+        return {"groups": results}
+    
+@app.route('/api/kr2', methods=['POST'])
+def kr2():
+    data = request.get_json()
+    ltj.clear_json("app_project/_2kr/KR2_json.json")
+    right_answers, check_user_answers = ltj._2KR_load_to_json("app_project/_2kr/KR2_json.json", data)
+    return {"right": right_answers, "checked": check_user_answers}
+    
+    #"app_project/_2kr/test_front_json.json"
+    
+@app.route("/api/events/", methods=["POST"])
+def handler_events():
+    events = Event.query.all()

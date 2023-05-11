@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.mysql import INTEGER
 from app_project import db
 
 #--------------------DECLARATION OF USERS TABLE MODEL--------------------
@@ -15,4 +16,18 @@ class Group_list(db.Model):
     __tablename__ = 'group_list'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     g_name = db.Column(db.String(7))
-    users = db.relationship("Users", backref=db.backref('group_list', uselist=False), lazy = 'dynamic')
+    #users = db.relationship("Users", backref=db.backref('group_list', uselist=False), lazy = 'dynamic')
+    
+class Event(db.Model):
+    __tablename__ = 'event'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date = db.Column(db.DateTime)
+    length = db.Column(INTEGER(unsigned=True))
+    test_num = db.Column(db.Integer)
+    test_status = db.Column(db.Integer)
+    
+class Event_groups(db.Model):
+    __tablename__ = 'event_groups'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    group_id = db.Column(db.Integer)
+    event_id = db.Column(db.Integer)

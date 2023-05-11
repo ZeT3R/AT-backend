@@ -1,12 +1,19 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, send_from_directory, render_template, url_for
+from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.sql import text
+import app_project._2kr.load_to_json as ltj
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://sammy:Xc24pqel1@188.120.234.77:5432/sammy"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
+# app.config['MYSQL_HOST'] = '188.120.234.77'
+# app.config['MYSQL_USER'] = 'sammy'
+# app.config['MYSQL_PASSWORD'] = '1xtv34bs'
+# app.config['MYSQL_DB'] = 'efring'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://sammy:1xtv34bs@188.120.234.77:3306/efring"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+mysql = MySQL(app)
 db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
