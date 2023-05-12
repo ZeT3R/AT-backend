@@ -1,14 +1,17 @@
-from app_project import app, db, request, render_template, ltj
+from app_project import app, db, request, render_template, ltj, ltj3
 from app_project.models import Users, Group_list, Event
+from app_project import cross_origin
 
 #--------------------DEFAULT ROUTE(MAIN PAGE)--------------------
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
+@cross_origin()
 def default_connection(path):
     return render_template('index.html')
 
 #--------------------GET ALL USERS AND POST ANY AMOUNT OF USERS IN DB--------------------
 @app.route('/api/users', methods=['GET', 'POST'])
+@cross_origin()
 def handle_users():
     if request.method == 'POST':
         if request.is_json:
@@ -41,11 +44,12 @@ def handle_users():
 
 #--------------------GET ALL EXISTING IN DB GROUPS OR ADD NEW ONES--------------------
 @app.route('/api/grouplist', methods=['GET', 'POST'])
+@cross_origin()
 def handle_grouplist():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            new_group = Group_list(g_name=data['g_name'])
+            new_group = Group_list(g_name=data['name'])
             db.session.add(new_group)
             db.session.commit()
             return {"message": f"group {new_group.g_name} has been created successfully."}
@@ -55,14 +59,15 @@ def handle_grouplist():
     elif request.method == 'GET':
         group_list = Group_list.query.all()
         results = [
-            {
+            { 
                 "id": group.id,
-                "g_name": group.g_name
+                "name": group.g_name
             } for group in group_list]
         return {"count": len(results), "groups": results}
 
 ##--------------------COMPARE POSTED USER WITH USERS THAT EXIST IN TABLE--------------------
 @app.route('/api/user_compare', methods=['POST'])
+@cross_origin()
 def handler_usercomp():
     if request.is_json:
         data = request.get_json()
@@ -83,25 +88,30 @@ def handler_usercomp():
         return {"error": "Login or password incorrect"} 
     
 @app.route('/api/g_ret/<int:int_params>', methods=['GET'])
+@cross_origin()
 def handler_g_ret(int_params):
         group_list = Group_list.query.all()
         for group in group_list:
             if int_params == group.id:
                 results = {
                         "id": group.id,
-                        "g_name": group.g_name
+                        "name": group.g_name
                     }
         return {"groups": results}
     
 @app.route('/api/kr2', methods=['POST'])
+@cross_origin()
 def kr2():
     data = request.get_json()
     ltj.clear_json("app_project/_2kr/KR2_json.json")
     right_answers, check_user_answers = ltj._2KR_load_to_json("app_project/_2kr/KR2_json.json", data)
     return {"right": right_answers, "checked": check_user_answers}
+
+@app.route('/api/kr3', methods=['POST'])
+def kr3():
+    data = request.get_json()
+    ltj3.clear_json("app_project/_3kr/KR3_json.json")
+    right_answers, check_user_answers = ltj3._3KR_load_to_json("app_project/_3kr/KR3_json.json", data)
+    print(right_answers, check_user_answers)
+    return {"right": right_answers, "checked": check_user_answers}
     
-    #"app_project/_2kr/test_front_json.json"
-    
-@app.route("/api/events/", methods=["POST"])
-def handler_events():
-    events = Event.query.all()

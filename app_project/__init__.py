@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.sql import text
 import app_project._2kr.load_to_json as ltj
+import app_project._3kr.load_to_json as ltj3
+from flask_cors import cross_origin
 
 app = Flask(__name__)
 
