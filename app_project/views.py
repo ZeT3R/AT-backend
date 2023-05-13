@@ -1,17 +1,19 @@
-from app_project import app, db, request, render_template, ltj, ltj3
+from app_project import app, db, request, render_template, form_json
 from app_project.models import Users, Group_list, Event
-from app_project import cross_origin
+#from app_project import cross_origin
+
+start_json = "app_project/json_post/empty_json"
 
 #--------------------DEFAULT ROUTE(MAIN PAGE)--------------------
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-@cross_origin()
+#@cross_origin()
 def default_connection(path):
     return render_template('index.html')
 
 #--------------------GET ALL USERS AND POST ANY AMOUNT OF USERS IN DB--------------------
 @app.route('/api/users', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def handle_users():
     if request.method == 'POST':
         if request.is_json:
@@ -44,7 +46,7 @@ def handle_users():
 
 #--------------------GET ALL EXISTING IN DB GROUPS OR ADD NEW ONES--------------------
 @app.route('/api/grouplist', methods=['GET', 'POST'])
-@cross_origin()
+#@cross_origin()
 def handle_grouplist():
     if request.method == 'POST':
         if request.is_json:
@@ -67,7 +69,7 @@ def handle_grouplist():
 
 ##--------------------COMPARE POSTED USER WITH USERS THAT EXIST IN TABLE--------------------
 @app.route('/api/user_compare', methods=['POST'])
-@cross_origin()
+#@cross_origin()
 def handler_usercomp():
     if request.is_json:
         data = request.get_json()
@@ -88,7 +90,7 @@ def handler_usercomp():
         return {"error": "Login or password incorrect"} 
     
 @app.route('/api/g_ret/<int:int_params>', methods=['GET'])
-@cross_origin()
+#@cross_origin()
 def handler_g_ret(int_params):
         group_list = Group_list.query.all()
         for group in group_list:
@@ -98,20 +100,27 @@ def handler_g_ret(int_params):
                         "name": group.g_name
                     }
         return {"groups": results}
+
+################################# RETURN TO NORMAL STATE, EPTA ############################################
     
-@app.route('/api/kr2', methods=['POST'])
-@cross_origin()
-def kr2():
+@app.route('/api/kr1', methods=['POST'])
+#@cross_origin()
+def kr1():
     data = request.get_json()
-    ltj.clear_json("app_project/_2kr/KR2_json.json")
-    right_answers, check_user_answers = ltj._2KR_load_to_json("app_project/_2kr/KR2_json.json", data)
+    right_answers, check_user_answers = form_json.form_json1(start_json, data)
     return {"right": right_answers, "checked": check_user_answers}
 
+
 @app.route('/api/kr3', methods=['POST'])
+#@cross_origin()
 def kr3():
     data = request.get_json()
-    ltj3.clear_json("app_project/_3kr/KR3_json.json")
-    right_answers, check_user_answers = ltj3._3KR_load_to_json("app_project/_3kr/KR3_json.json", data)
-    print(right_answers, check_user_answers)
+    right_answers, check_user_answers = form_json.form_json3(start_json, data)
+    return {"right": right_answers, "checked": check_user_answers}
+
+@app.route('/api/kr4', methods=['POST'])
+def kr4():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json4(start_json, data)
     return {"right": right_answers, "checked": check_user_answers}
     
