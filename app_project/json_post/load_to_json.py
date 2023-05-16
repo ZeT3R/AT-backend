@@ -99,6 +99,8 @@ def form_json1(ret_json, in_json):
 
 def form_json3(ret_json, in_json):
     ret_json = clear_json(ret_json, "app_project/json_post/format_3_json.json")
+    
+    count = 0;
 
     with open(ret_json) as f1:
         templates = json.load(f1)

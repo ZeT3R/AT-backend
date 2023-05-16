@@ -1,6 +1,7 @@
 from app_project import app, db, request, render_template, form_json
-from app_project.models import Users, Group_list, Event
+from app_project.models import Users, Group_list, Event, Tests
 from app_project import cross_origin
+import time
 
 #--------------------DEFAULT ROUTE(MAIN PAGE)--------------------
 @app.route('/', defaults={'path': ''})
@@ -21,9 +22,14 @@ def handle_users():
                              password = data['password'],
                              role = data['role'],
                              group_id = data['group_id'])
-            
             db.session.add(new_user)
             db.session.commit()
+            
+            cur_user = db.session.query(Users).filter(Users.login == data['login']).one()
+            new_test = Tests(user_id = cur_user.id)
+            db.session.add(new_test)
+            db.session.commit()
+            
             return {"message": f"user {new_user.login} has been created successfully."}
         else:
             return {"error": "The request payload is not in JSON format"}
@@ -55,13 +61,12 @@ def handle_users_update():
     db.session.commit()
     return {"message": f"user {data['login']} has been updated successfully."}
 
-@app.route('/api/users/delete', methods=['DELETE'])
+@app.route('/api/users/delete/<int:int_params>', methods=['DELETE'])
 @cross_origin()
-def handle_users_delete():
-    data = request.get_json()
-    db.session.query(Users).filter(Users.id == data['id']).delete(synchronize_session='fetch')
+def handle_users_delete(int_params):
+    db.session.query(Users).filter(Users.id == int_params).delete(synchronize_session='fetch')
     db.session.commit()
-    return {"message": f"user with id:{data['id']} has been deleted successfully."}
+    return {"message": f"user with id:{int_params} has been deleted successfully."}
 
 #--------------------GET ALL EXISTING IN DB GROUPS OR ADD NEW ONES--------------------
 @app.route('/api/grouplist', methods=['GET', 'POST'])
@@ -95,13 +100,12 @@ def handle_grouplist_update():
     db.session.commit()
     return {"message": f"group {data['name']} has been updated successfully."}
 
-@app.route('/api/grouplist/delete', methods=['DELETE'])
+@app.route('/api/grouplist/delete/<int:int_params>', methods=['DELETE'])
 @cross_origin()
-def handle_grouplist_delete():
-    data = request.get_json()
-    db.session.query(Group_list).filter(Group_list.id == data['id']).delete(synchronize_session='fetch')
+def handle_grouplist_delete(int_params):
+    db.session.query(Group_list).filter(Group_list.id == int_params).delete(synchronize_session='fetch')
     db.session.commit()
-    return {"message": f"group with id:{data['id']} has been deleted successfully."}
+    return {"message": f"group with id:{int_params} has been deleted successfully."}
 
 ##--------------------COMPARE POSTED USER WITH USERS THAT EXIST IN TABLE--------------------
 @app.route('/api/user_compare', methods=['POST'])

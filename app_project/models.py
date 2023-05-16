@@ -31,3 +31,17 @@ class Event_groups(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     group_id = db.Column(db.Integer)
     event_id = db.Column(db.Integer)
+    
+class Tests(db.Model):
+    __tablename__= 'tests'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    kr1 = db.Column(db.Integer, default = None)
+    kr2 = db.Column(db.Integer, default = None)
+    kr3 = db.Column(db.Integer, default = None)
+    kr4 = db.Column(db.Integer, default = None)
+    kr5 = db.Column(db.Integer, default = None)
+    kr6 = db.Column(db.Integer, default = None)
+    kr7 = db.Column(db.Integer, default = None)
+    kr8 = db.Column(db.Integer, default = None)
+    
