@@ -18,8 +18,6 @@ def form_json1(ret_json, in_json):
     with open(ret_json) as f1:
         templates = json.load(f1)
     templatesIN = in_json
-    
-    f1.close()
 
     templates["A_var"] = templatesIN["A_var"]
     templates["precision"] = templatesIN["precision"]
@@ -93,20 +91,18 @@ def form_json1(ret_json, in_json):
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
-    f1.close()
+
     return [templates, templatesIN]
 
 
 def form_json3(ret_json, in_json):
     ret_json = clear_json(ret_json, "app_project/json_post/format_3_json.json")
-    
-    count = 0;
 
     with open(ret_json) as f1:
         templates = json.load(f1)
     templatesIN = in_json
 
-    f1.close()
+    count = 0
 
     templates["A_var"] = templatesIN["A_var"]
     templates["B_var"] = templatesIN["B_var"]
@@ -117,138 +113,176 @@ def form_json3(ret_json, in_json):
 
     templates["A"][0]["str"] = convert(q)
     templatesIN['A'][0]['str'] = True if templatesIN['A'][0]['str'] == templates["A"][0]["str"] else False
+    if templatesIN['A'][0]['str']: count += 1
     templates["A"][0]["rev"] = rev(q)
     templatesIN['A'][0]['rev'] = True if templatesIN['A'][0]['rev'] == templates["A"][0]["rev"] else False
+    if templatesIN['A'][0]['rev']: count += 2
     templates["A"][0]["dop"] = dop(q)
     templatesIN['A'][0]['dop'] = True if templatesIN['A'][0]['dop'] == templates["A"][0]["dop"] else False
+    if templatesIN['A'][0]['dop']: count += 2
     templates["A"][0]["int"] = convert(convert(q))
 
     templates["B"][0]["str"] = convert(w)
     templatesIN['B'][0]['str'] = True if templatesIN['B'][0]['str'] == templates["B"][0]["str"] else False
+    if templatesIN['B'][0]['str']: count += 1
     templates["B"][0]["rev"] = rev(w)
     templatesIN['B'][0]['rev'] = True if templatesIN['B'][0]['rev'] == templates["B"][0]["rev"] else False
+    if templatesIN['B'][0]['rev']: count += 2
     templates["B"][0]["dop"] = dop(w)
     templatesIN['B'][0]['dop'] = True if templatesIN['B'][0]['dop'] == templates["B"][0]["dop"] else False
+    if templatesIN['B'][0]['dop']: count += 2
     templates["B"][0]["int"] = convert(convert(w))
 
     templates["-A"][0]["str"] = convert(-q)
     templatesIN['-A'][0]['str'] = True if templatesIN['-A'][0]['str'] == templates["-A"][0]["str"] else False
+    if templatesIN['-A'][0]['str']: count += 1
     templates["-A"][0]["rev"] = rev(-q)
     templatesIN['-A'][0]['rev'] = True if templatesIN['-A'][0]['rev'] == templates["-A"][0]["rev"] else False
+    if templatesIN['-A'][0]['rev']: count += 2
     templates["-A"][0]["dop"] = dop(-q)
     templatesIN['-A'][0]['dop'] = True if templatesIN['-A'][0]['dop'] == templates["-A"][0]["dop"] else False
+    if templatesIN['-A'][0]['dop']: count += 2
     templates["-A"][0]["int"] = convert(convert(-q))
 
     templates["-B"][0]["str"] = convert(-w)
     templatesIN['-B'][0]['str'] = True if templatesIN['-B'][0]['str'] == templates["-B"][0]["str"] else False
+    if templatesIN['-B'][0]['str']: count += 1
     templates["-B"][0]["rev"] = rev(-w)
     templatesIN['-B'][0]['rev'] = True if templatesIN['-B'][0]['rev'] == templates["-B"][0]["rev"] else False
+    if templatesIN['-B'][0]['rev']: count += 2
     templates["-B"][0]["dop"] = dop(-w)
     templatesIN['-B'][0]['dop'] = True if templatesIN['-B'][0]['dop'] == templates["-B"][0]["dop"] else False
+    if templatesIN['-B'][0]['dop']: count += 2
     templates["-B"][0]["int"] = convert(convert(-w))
 
     templates["A*2^-2"][0]["str"] = shift(convert(q), "str", -2)
     templatesIN['A*2^-2'][0]['str'] = True if check_overflow(templatesIN['A*2^-2'][0]['str'],
                                                              templates["A*2^-2"][0]["str"]) else False
+    if templatesIN['A*2^-2'][0]['str']: count += 2
     templates["A*2^-2"][0]["rev"] = shift(rev(q), "str", -2)
     templatesIN['A*2^-2'][0]['rev'] = True if check_overflow(templatesIN['A*2^-2'][0]['rev'],
                                                              templates["A*2^-2"][0]["rev"]) else False
+    if templatesIN['A*2^-2'][0]['rev']: count += 4
     templates["A*2^-2"][0]["dop"] = shift(dop(q), "str", -2)
     templatesIN['A*2^-2'][0]['dop'] = True if check_overflow(templatesIN['A*2^-2'][0]['dop'],
                                                              templates["A*2^-2"][0]["dop"]) else False
+    if templatesIN['A*2^-2'][0]['dop']: count += 4
     templates["A*2^-2"][0]["int"] = convert(shift(convert(q), "str", -2))
 
     templates["A*2^-3"][0]["str"] = shift(convert(q), "str", -3)
     templatesIN['A*2^-3'][0]['str'] = True if check_overflow(templatesIN['A*2^-3'][0]['str'],
                                                              templates["A*2^-3"][0]["str"]) else False
+    if templatesIN['A*2^-3'][0]['str']: count += 2
     templates["A*2^-3"][0]["rev"] = shift(rev(q), "str", -3)
     templatesIN['A*2^-3'][0]['rev'] = True if check_overflow(templatesIN['A*2^-3'][0]['rev'],
                                                              templates["A*2^-3"][0]["rev"]) else False
+    if templatesIN['A*2^-3'][0]['rev']: count += 4
     templates["A*2^-3"][0]["dop"] = shift(dop(q), "str", -3)
     templatesIN['A*2^-3'][0]['dop'] = True if check_overflow(templatesIN['A*2^-3'][0]['dop'],
                                                              templates["A*2^-3"][0]["dop"]) else False
+    if templatesIN['A*2^-3'][0]['dop']: count += 4
     templates["A*2^-3"][0]["int"] = convert(shift(convert(q), "str", -3))
 
     templates["A*2^+3"][0]["str"] = shift(convert(q), "str", 3)
     templatesIN['A*2^+3'][0]['str'] = True if check_overflow(templatesIN['A*2^+3'][0]['str'],
                                                              templates["A*2^+3"][0]["str"]) else False
+    if templatesIN['A*2^+3'][0]['str']: count += 2
     templates["A*2^+3"][0]["rev"] = shift(rev(q), "str", 3)
     templatesIN['A*2^+3'][0]['rev'] = True if check_overflow(templatesIN['A*2^+3'][0]['rev'],
                                                              templates["A*2^+3"][0]["rev"]) else False
+    if templatesIN['A*2^+3'][0]['rev']: count += 4
     templates["A*2^+3"][0]["dop"] = shift(dop(q), "str", 3)
     templatesIN['A*2^+3'][0]['dop'] = True if check_overflow(templatesIN['A*2^+3'][0]['dop'],
                                                              templates["A*2^+3"][0]["dop"]) else False
+    if templatesIN['A*2^+3'][0]['dop']: count += 4
     templates["A*2^+3"][0]["int"] = convert(shift(convert(q), "str", 3))
 
     templates["A*2^+4"][0]["str"] = shift(convert(q), "str", 4)
     templatesIN['A*2^+4'][0]['str'] = True if check_overflow(templatesIN['A*2^+4'][0]['str'],
                                                              templates["A*2^+4"][0]["str"]) else False
+    if templatesIN['A*2^+4'][0]['str']: count += 2
     templates["A*2^+4"][0]["rev"] = shift(rev(q), "str", 4)
     templatesIN['A*2^+4'][0]['rev'] = True if check_overflow(templatesIN['A*2^+4'][0]['rev'],
                                                              templates["A*2^+4"][0]["rev"]) else False
+    if templatesIN['A*2^+4'][0]['rev']: count += 4
     templates["A*2^+4"][0]["dop"] = shift(dop(q), "str", 4)
     templatesIN['A*2^+4'][0]['dop'] = True if check_overflow(templatesIN['A*2^+4'][0]['dop'],
                                                              templates["A*2^+4"][0]["dop"]) else False
+    if templatesIN['A*2^+4'][0]['dop']: count += 4
     templates["A*2^+4"][0]["int"] = convert(shift(convert(q), "str", 4))
 
     templates["B*2^-2"][0]["str"] = shift(convert(w), "str", -2)
     templatesIN['B*2^-2'][0]['str'] = True if check_overflow(templatesIN['B*2^-2'][0]['str'],
                                                              templates["B*2^-2"][0]["str"]) else False
+    if templatesIN['B*2^-2'][0]['str']: count += 2
     templates["B*2^-2"][0]["rev"] = shift(rev(w), "str", -2)
     templatesIN['B*2^-2'][0]['rev'] = True if check_overflow(templatesIN['B*2^-2'][0]['rev'],
                                                              templates["B*2^-2"][0]["rev"]) else False
+    if templatesIN['B*2^-2'][0]['rev']: count += 4
     templates["B*2^-2"][0]["dop"] = shift(dop(w), "str", -2)
     templatesIN['B*2^-2'][0]['dop'] = True if check_overflow(templatesIN['B*2^-2'][0]['dop'],
                                                              templates["B*2^-2"][0]["dop"]) else False
+    if templatesIN['B*2^-2'][0]['dop']: count += 4
     templates["B*2^-2"][0]["int"] = convert(shift(convert(w), "str", -2))
 
     templates["B*2^-3"][0]["str"] = shift(convert(w), "str", -3)
     templatesIN['B*2^-3'][0]['str'] = True if check_overflow(templatesIN['B*2^-3'][0]['str'],
                                                              templates["B*2^-3"][0]["str"]) else False
+    if templatesIN['B*2^-3'][0]['str']: count += 2
     templates["B*2^-3"][0]["rev"] = shift(rev(w), "str", -3)
     templatesIN['B*2^-3'][0]['rev'] = True if check_overflow(templatesIN['B*2^-3'][0]['rev'],
                                                              templates["B*2^-3"][0]["rev"]) else False
+    if templatesIN['B*2^-3'][0]['rev']: count += 4
     templates["B*2^-3"][0]["dop"] = shift(dop(w), "str", -3)
     templatesIN['B*2^-3'][0]['dop'] = True if check_overflow(templatesIN['B*2^-3'][0]['dop'],
                                                              templates["B*2^-3"][0]["dop"]) else False
+    if templatesIN['B*2^-3'][0]['dop']: count += 4
     templates["B*2^-3"][0]["int"] = convert(shift(convert(w), "str", -3))
 
     templates["B*2^+3"][0]["str"] = shift(convert(w), "str", 3)
     templatesIN['B*2^+3'][0]['str'] = True if check_overflow(templatesIN['B*2^+3'][0]['str'],
                                                              templates["B*2^+3"][0]["str"]) else False
+    if templatesIN['B*2^+3'][0]['str']: count += 2
     templates["B*2^+3"][0]["rev"] = shift(rev(w), "str", 3)
     templatesIN['B*2^+3'][0]['rev'] = True if check_overflow(templatesIN['B*2^+3'][0]['rev'],
                                                              templates["B*2^+3"][0]["rev"]) else False
+    if templatesIN['B*2^+3'][0]['rev']: count += 4
     templates["B*2^+3"][0]["dop"] = shift(dop(w), "str", 3)
     templatesIN['B*2^+3'][0]['dop'] = True if check_overflow(templatesIN['B*2^+3'][0]['dop'],
                                                              templates["B*2^+3"][0]["dop"]) else False
+    if templatesIN['B*2^+3'][0]['dop']: count += 4
     templates["B*2^+3"][0]["int"] = convert(shift(convert(w), "str", 3))
 
     templates["B*2^+4"][0]["str"] = shift(convert(w), "str", 4)
     templatesIN['B*2^+4'][0]['str'] = True if check_overflow(templatesIN['B*2^+4'][0]['str'],
                                                              templates["B*2^+4"][0]["str"]) else False
+    if templatesIN['B*2^+4'][0]['str']: count += 2
     templates["B*2^+4"][0]["rev"] = shift(rev(w), "str", 4)
     templatesIN['B*2^+4'][0]['rev'] = True if check_overflow(templatesIN['B*2^+4'][0]['rev'],
                                                              templates["B*2^+4"][0]["rev"]) else False
+    if templatesIN['B*2^+4'][0]['rev']: count += 4
     templates["B*2^+4"][0]["dop"] = shift(dop(w), "str", 4)
     templatesIN['B*2^+4'][0]['dop'] = True if check_overflow(templatesIN['B*2^+4'][0]['dop'],
                                                              templates["B*2^+4"][0]["dop"]) else False
+    if templatesIN['B*2^+4'][0]['dop']: count += 4
     templates["B*2^+4"][0]["int"] = convert(shift(convert(w), "str", 4))
+
+    templatesIN["score"] = count
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
-    f1.close()
+
     return [templates, templatesIN]
 
 
 def form_json4(ret_json, in_json):
     ret_json = clear_json(ret_json, "app_project/json_post/format_4_json.json")
 
+    count = 0
+
     with open(ret_json) as f1:
         templates = json.load(f1)
     templatesIN = in_json
-
-    f1.close()
 
     templates["A_var"] = templatesIN["A_var"]
     templates["B_var"] = templatesIN["B_var"]
@@ -260,42 +294,58 @@ def form_json4(ret_json, in_json):
     A_B = summator(q, w)
     templates["A+B"][0]["str"] = convert(A_B)
     templatesIN['A+B'][0]['str'] = True if templatesIN['A+B'][0]['str'] == templates["A+B"][0]["str"] else False
+    if templatesIN['A+B'][0]['str']: count += 5
     templates["A+B"][0]["rev"] = rev(A_B)
     templatesIN['A+B'][0]['rev'] = True if templatesIN['A+B'][0]['rev'] == templates["A+B"][0]["rev"] else False
+    if templatesIN['A+B'][0]['rev']: count += 10
     templates["A+B"][0]["dop"] = dop(A_B)
     templatesIN['A+B'][0]['dop'] = True if templatesIN['A+B'][0]['dop'] == templates["A+B"][0]["dop"] else False
+    if templatesIN['A+B'][0]['dop']: count += 10
     templates["A+B"][0]["int"] = A_B
 
     minA_B = summator(-q, w)
     templates["-A+B"][0]["str"] = convert(minA_B)
     templatesIN['-A+B'][0]['str'] = True if templatesIN['-A+B'][0]['str'] == templates["-A+B"][0]["str"] else False
+    if templatesIN['-A+B'][0]['str']: count += 5
     templates["-A+B"][0]["rev"] = rev(minA_B)
     templatesIN['-A+B'][0]['rev'] = True if templatesIN['-A+B'][0]['rev'] == templates["-A+B"][0]["rev"] else False
+    if templatesIN['-A+B'][0]['rev']: count += 10
     templates["-A+B"][0]["dop"] = dop(minA_B)
     templatesIN['-A+B'][0]['dop'] = True if templatesIN['-A+B'][0]['dop'] == templates["-A+B"][0]["dop"] else False
+    if templatesIN['-A+B'][0]['dop']: count += 10
     templates["-A+B"][0]["int"] = minA_B
 
     A_minB = summator(q, -w)
     templates["A-B"][0]["str"] = convert(A_minB)
     templatesIN['A-B'][0]['str'] = True if templatesIN['A-B'][0]['str'] == templates["A-B"][0]["str"] else False
+    if templatesIN['A-B'][0]['str']: count += 5
     templates["A-B"][0]["rev"] = rev(A_minB)
     templatesIN['A-B'][0]['rev'] = True if templatesIN['A-B'][0]['rev'] == templates["A-B"][0]["rev"] else False
+    if templatesIN['A-B'][0]['rev']: count += 10
     templates["A-B"][0]["dop"] = dop(A_minB)
     templatesIN['A-B'][0]['dop'] = True if templatesIN['A-B'][0]['dop'] == templates["A-B"][0]["dop"] else False
+    if templatesIN['A-B'][0]['dop']: count += 10
     templates["A-B"][0]["int"] = A_minB
 
     minA_minB = summator(-q, -w)
     templates["-A-B"][0]["str"] = convert(minA_minB)
     templatesIN['-A-B'][0]['str'] = True if templatesIN['-A-B'][0]['str'] == templates["-A-B"][0]["str"] else False
+    if templatesIN['-A-B'][0]['str']: count += 5
     templates["-A-B"][0]["rev"] = rev(minA_minB)
     templatesIN['-A-B'][0]['rev'] = True if templatesIN['-A-B'][0]['rev'] == templates["-A-B"][0]["rev"] else False
+    if templatesIN['-A-B'][0]['rev']: count += 10
     templates["-A-B"][0]["dop"] = dop(minA_minB)
     templatesIN['-A-B'][0]['dop'] = True if templatesIN['-A-B'][0]['dop'] == templates["-A-B"][0]["dop"] else False
+    if templatesIN['-A-B'][0]['dop']: count += 10
     templates["-A-B"][0]["int"] = minA_minB
+
+    templates["score"] = count
+
+    print(templates)
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
-    output.close()
+
     return [templates, templatesIN]
 
 
