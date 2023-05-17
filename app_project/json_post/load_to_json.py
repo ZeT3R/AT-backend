@@ -278,6 +278,8 @@ def form_json3(ret_json, in_json):
     if templatesIN['B*2^+4'][0]['dop']: count += 4
     templates["B*2^+4"][0]["int"] = convert(shift(convert(w), "str", 4))
 
+    templatesIN["score"] = count
+
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
