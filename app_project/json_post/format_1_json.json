@@ -7,5 +7,6 @@
   "A_hex": 0,
   "numb_with_system1": [{"numb": 0, "system_from": 0, "system_to": 0, "result": 0 }],
   "numb_with_system2": [{"numb": 0, "system_from": 0, "system_to": 0, "result": 0 }],
-  "numb_with_system3": [{"numb": 0, "system_from": 0, "system_to": 0, "result": 0 }]
+  "numb_with_system3": [{"numb": 0, "system_from": 0, "system_to": 0, "result": 0 }],
+  "score": ""
 }

@@ -19,6 +19,8 @@ def form_json1(ret_json, in_json):
         templates = json.load(f1)
     templatesIN = in_json
 
+    count = 0
+
     templates["A_var"] = templatesIN["A_var"]
     templates["precision"] = templatesIN["precision"]
     templates["stud_id"] = templatesIN["stud_id"]
@@ -29,14 +31,17 @@ def form_json1(ret_json, in_json):
     A_dvoich, A_dvoich_whole, A_dvoich_frac = from10to2(A, prec)
     templates["A_dvoich"] = A_dvoich
     templatesIN["A_dvoich"] = True if templatesIN["A_dvoich"] == templates["A_dvoich"] else False
+    if templatesIN["A_dvoich"]: count += 10
 
     A_oct = from10to8(A, A_dvoich_whole, A_dvoich_frac)
     templates["A_oct"] = A_oct
     templatesIN["A_oct"] = True if templatesIN["A_oct"] == templates["A_oct"] else False
+    if templatesIN["A_oct"]: count += 15
 
     A_hex = from10to16(A, A_dvoich_whole, A_dvoich_frac)
     templates["A_hex"] = A_hex
     templatesIN["A_hex"] = True if templatesIN["A_hex"] == templates["A_hex"] else False
+    if templatesIN["A_hex"]: count += 15
 
     numb = templatesIN["numb_with_system1"][0]['numb']
     system_from = templatesIN["numb_with_system1"][0]['system_from']
@@ -54,6 +59,7 @@ def form_json1(ret_json, in_json):
         templates["numb_with_system1"][0]['result'] = fromP(numb, system_from, system_to)
     templatesIN["numb_with_system1"][0]['result'] = True if templatesIN["numb_with_system1"][0]['result'] == \
                                                             templates["numb_with_system1"][0]['result'] else False
+    if templatesIN["numb_with_system1"][0]['result']: count += 20
 
     numb = templatesIN["numb_with_system2"][0]['numb']
     system_from = templatesIN["numb_with_system2"][0]['system_from']
@@ -71,6 +77,7 @@ def form_json1(ret_json, in_json):
         templates["numb_with_system2"][0]['result'] = fromP(numb, system_from, system_to)
     templatesIN["numb_with_system2"][0]['result'] = True if templatesIN["numb_with_system2"][0]['result'] == \
                                                             templates["numb_with_system2"][0]['result'] else False
+    if templatesIN["numb_with_system2"][0]['result']: count += 20
 
     numb = templatesIN["numb_with_system3"][0]['numb']
     system_from = templatesIN["numb_with_system3"][0]['system_from']
@@ -88,6 +95,10 @@ def form_json1(ret_json, in_json):
         templates["numb_with_system3"][0]['result'] = fromP(numb, system_from, system_to)
     templatesIN["numb_with_system3"][0]['result'] = True if templatesIN["numb_with_system3"][0]['result'] == \
                                                             templates["numb_with_system3"][0]['result'] else False
+    if templatesIN["numb_with_system3"][0]['result']: count += 20
+
+    templatesIN["score"] = count
+
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -267,7 +278,6 @@ def form_json3(ret_json, in_json):
     if templatesIN['B*2^+4'][0]['dop']: count += 4
     templates["B*2^+4"][0]["int"] = convert(shift(convert(w), "str", 4))
 
-    templatesIN["score"] = count
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -339,9 +349,7 @@ def form_json4(ret_json, in_json):
     if templatesIN['-A-B'][0]['dop']: count += 10
     templates["-A-B"][0]["int"] = minA_minB
 
-    templates["score"] = count
-
-    print(templates)
+    templatesIN["score"] = count
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
