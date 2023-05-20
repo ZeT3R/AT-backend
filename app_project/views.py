@@ -61,6 +61,41 @@ def handle_users_update():
     db.session.commit()
     return {"message": f"user {data['login']} has been updated successfully."}
 
+@app.route ('/api/full_user/<int:int_params>', methods=['GET'])
+@cross_origin()
+def handle_full_user(int_params):
+    
+    users = Users.query.filter(Users.id.like(int_params))
+    groups = Group_list.query.filter(Group_list.id.like(users[0].group_id))
+    tests = Tests.query.filter(Tests.user_id.like(int_params))
+    
+    results = {"user": {
+            "id": users[0].id,
+            "login": users[0].login,
+            "name": users[0].name,
+            "password": users[0].password,
+            "role": users[0].role,
+            "group_id": users[0].group_id
+            }
+        }
+    
+    results['group'] = {
+            "group_id": groups[0].id,
+            "group_name": groups[0].g_name
+            }
+    results['test'] = {}
+    
+    count = 1
+    for test in tests:
+        results['test'][count] = {   
+                "id": test.id,
+                "test_name": test.test_name,
+                "test_score": test.test_score
+                }
+        count += 1
+    
+    return results
+
 @app.route('/api/users/delete/<int:int_params>', methods=['DELETE'])
 @cross_origin()
 def handle_users_delete(int_params):
@@ -142,6 +177,48 @@ def handler_g_ret(int_params):
         return {"groups": results}
 
 
+@app.route("/api/tests", methods=['GET', 'POST', 'PUT', 'DELETE'])
+@cross_origin()
+def handle_tests():
+    if request.method == 'GET':
+        tests = Tests.query.all()
+        results = [
+            {
+                "id": test.id,
+                "user_id": test.user_id,
+                "name": test.test_name,
+                "score": test.test_score
+            } for test in tests]
+        return {"count": len(results), "tests": results}
+    
+    elif request.method == 'POST': 
+        if request.is_json:
+            data = request.get_json()
+            new_test = Tests(user_id = data['user_id'],
+                             test_name = data['name'],
+                             test_score = data['score'])
+            db.session.add(new_test)
+            db.session.commit()
+            return {"message": f"{new_test.user_id} users {new_test.test_name} has been created successfully."}
+        else:
+            return {"error": "The request payload is not in JSON format"}
+        
+    elif request.method == 'PUT':
+        if request.is_json:
+            data = request.get_json()
+            db.session.query(Tests).filter(Tests.user_id.like(data["stud_id"]),
+                                           Tests.test_name.like(data["name"])).update({"test_score": data['score']}, synchronize_session='fetch')
+            db.session.commit()
+            return {"message": f"{data['stud_id']} users {data['test_name']} has been updated successfully."}
+        else:
+            return {"error": "The request payload is not in JSON format"} 
+
+@app.route("/api/tests/<int:int_params>", methods=["DELETE"])
+@cross_origin()
+def handle_tests_delete(int_params):
+    db.session.query(Tests).filter(Tests.id == int_params).delete(synchronize_session='fetch')
+    db.session.commit()
+    return {"message": f"test with id:{int_params} has been deleted successfully."}
 
 start_json = "app_project/json_post/empty_json.json"
 
@@ -205,3 +282,4 @@ def kr4():
                                        Tests.test_name.like("test4")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
+
