@@ -150,6 +150,19 @@ start_json = "app_project/json_post/empty_json.json"
 def kr1():
     data = request.get_json()
     right_answers, check_user_answers = form_json.form_json1(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test1")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test1',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        print(db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test1")).first() is None)
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test1")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
 
@@ -158,6 +171,19 @@ def kr1():
 def kr3():
     data = request.get_json()
     right_answers, check_user_answers = form_json.form_json3(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test3")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test3',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        print(db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test3")).first() is None)
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test3")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
 @app.route('/api/kr4', methods=['POST'])
@@ -165,4 +191,17 @@ def kr3():
 def kr4():
     data = request.get_json()
     right_answers, check_user_answers = form_json.form_json4(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test4")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test4',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        print(db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test4")).first() is None)
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test4")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
