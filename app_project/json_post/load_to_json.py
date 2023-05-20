@@ -43,62 +43,26 @@ def form_json1(ret_json, in_json):
     templatesIN["A_hex"] = True if templatesIN["A_hex"] == templates["A_hex"] else False
     if templatesIN["A_hex"]: count += 15
 
-    numb = templatesIN["numb_with_system1"][0]['numb']
-    system_from = templatesIN["numb_with_system1"][0]['system_from']
-    system_to = templatesIN["numb_with_system1"][0]['system_to']
+    for i in range(len(templatesIN["numb_with_system"])):
+        numb = templatesIN["numb_with_system"][i]['numb']
+        system_from = templatesIN["numb_with_system"][i]['system_from']
+        system_to = templatesIN["numb_with_system"][i]['system_to']
 
-    templates["numb_with_system1"][0]['numb'] = templatesIN["numb_with_system1"][0]['numb']
-    templates["numb_with_system1"][0]['system_from'] = templatesIN["numb_with_system1"][0]['system_from']
-    templates["numb_with_system1"][0]['system_to'] = templatesIN["numb_with_system1"][0]['system_to']
+        templates["numb_with_system"][i]['numb'] = templatesIN["numb_with_system"][i]['numb']
+        templates["numb_with_system"][i]['system_from'] = templatesIN["numb_with_system"][i]['system_from']
+        templates["numb_with_system"][i]['system_to'] = templatesIN["numb_with_system"][i]['system_to']
 
-    if system_from == 10:
-        templates["numb_with_system1"][0]['result'] = from10(numb, system_to)
-    elif system_from == 2:
-        templates["numb_with_system1"][0]['result'] = from2(numb, system_to)
-    else:
-        templates["numb_with_system1"][0]['result'] = fromP(numb, system_from, system_to)
-    templatesIN["numb_with_system1"][0]['result'] = True if templatesIN["numb_with_system1"][0]['result'] == \
-                                                            templates["numb_with_system1"][0]['result'] else False
-    if templatesIN["numb_with_system1"][0]['result']: count += 20
-
-    numb = templatesIN["numb_with_system2"][0]['numb']
-    system_from = templatesIN["numb_with_system2"][0]['system_from']
-    system_to = templatesIN["numb_with_system2"][0]['system_to']
-
-    templates["numb_with_system2"][0]['numb'] = templatesIN["numb_with_system2"][0]['numb']
-    templates["numb_with_system2"][0]['system_from'] = templatesIN["numb_with_system2"][0]['system_from']
-    templates["numb_with_system2"][0]['system_to'] = templatesIN["numb_with_system2"][0]['system_to']
-
-    if system_from == 10:
-        templates["numb_with_system2"][0]['result'] = from10(numb, system_to)
-    elif system_from == 2:
-        templates["numb_with_system2"][0]['result'] = from2(numb, system_to)
-    else:
-        templates["numb_with_system2"][0]['result'] = fromP(numb, system_from, system_to)
-    templatesIN["numb_with_system2"][0]['result'] = True if templatesIN["numb_with_system2"][0]['result'] == \
-                                                            templates["numb_with_system2"][0]['result'] else False
-    if templatesIN["numb_with_system2"][0]['result']: count += 20
-
-    numb = templatesIN["numb_with_system3"][0]['numb']
-    system_from = templatesIN["numb_with_system3"][0]['system_from']
-    system_to = templatesIN["numb_with_system3"][0]['system_to']
-
-    templates["numb_with_system3"][0]['numb'] = templatesIN["numb_with_system3"][0]['numb']
-    templates["numb_with_system3"][0]['system_from'] = templatesIN["numb_with_system3"][0]['system_from']
-    templates["numb_with_system3"][0]['system_to'] = templatesIN["numb_with_system3"][0]['system_to']
-
-    if system_from == 10:
-        templates["numb_with_system3"][0]['result'] = from10(numb, system_to)
-    elif system_from == 2:
-        templates["numb_with_system3"][0]['result'] = from2(numb, system_to)
-    else:
-        templates["numb_with_system3"][0]['result'] = fromP(numb, system_from, system_to)
-    templatesIN["numb_with_system3"][0]['result'] = True if templatesIN["numb_with_system3"][0]['result'] == \
-                                                            templates["numb_with_system3"][0]['result'] else False
-    if templatesIN["numb_with_system3"][0]['result']: count += 20
+        if system_from == 10:
+            templates["numb_with_system"][i]['result'] = from10(numb, system_to)
+        elif system_from == 2:
+            templates["numb_with_system"][i]['result'] = from2(numb, system_to)
+        else:
+            templates["numb_with_system"][i]['result'] = fromP(numb, system_from, system_to)
+        templatesIN["numb_with_system"][i]['result'] = True if templatesIN["numb_with_system"][i]['result'] == \
+                                                               templates["numb_with_system"][i]['result'] else False
+        if templatesIN["numb_with_system"][i]['result']: count += 10
 
     templatesIN["score"] = count
-
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -279,7 +243,6 @@ def form_json3(ret_json, in_json):
     templates["B*2^+4"][0]["int"] = convert(shift(convert(w), "str", 4))
 
     templatesIN["score"] = count
-
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
