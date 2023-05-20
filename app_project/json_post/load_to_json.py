@@ -44,13 +44,13 @@ def form_json1(ret_json, in_json):
     if templatesIN["A_hex"]: count += 15
 
     for i in range(len(templatesIN["numb_with_system"])):
-        numb = templatesIN["numb_with_system"][i]['numb']
-        system_from = templatesIN["numb_with_system"][i]['system_from']
-        system_to = templatesIN["numb_with_system"][i]['system_to']
+        numb = int(templatesIN["numb_with_system"][i]['numb'], 10)
+        system_from = int(templatesIN["numb_with_system"][i]['system_from'], 10)
+        system_to = int(templatesIN["numb_with_system"][i]['system_to'], 10)
 
-        templates["numb_with_system"][i]['numb'] = templatesIN["numb_with_system"][i]['numb']
-        templates["numb_with_system"][i]['system_from'] = templatesIN["numb_with_system"][i]['system_from']
-        templates["numb_with_system"][i]['system_to'] = templatesIN["numb_with_system"][i]['system_to']
+        templates["numb_with_system"][i]['numb'] = int(templatesIN["numb_with_system"][i]['numb'], 10)
+        templates["numb_with_system"][i]['system_from'] = int(templatesIN["numb_with_system"][i]['system_from'], 10)
+        templates["numb_with_system"][i]['system_to'] = int(templatesIN["numb_with_system"][i]['system_to'], 10)
 
         if system_from == 10:
             templates["numb_with_system"][i]['result'] = from10(numb, system_to)
@@ -58,8 +58,8 @@ def form_json1(ret_json, in_json):
             templates["numb_with_system"][i]['result'] = from2(numb, system_to)
         else:
             templates["numb_with_system"][i]['result'] = fromP(numb, system_from, system_to)
-        templatesIN["numb_with_system"][i]['result'] = True if templatesIN["numb_with_system"][i]['result'] == \
-                                                               templates["numb_with_system"][i]['result'] else False
+        templatesIN["numb_with_system"][i]['result'] = True if int(templatesIN["numb_with_system"][i]['result'], 10) ==\
+                                                               int(templates["numb_with_system"][i]['result'], 10) else False
         if templatesIN["numb_with_system"][i]['result']: count += 10
 
     templatesIN["score"] = count
