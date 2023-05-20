@@ -72,7 +72,6 @@ def from2(number, p):  # Функйция преобразования числа number из 2-чной в p-тую 
     if type(number) is not str:  # Если пришла не строка, то
         number = str(number)  # Преобразовываем в строку
     for i in number:
-        print(int(i), 2)
         if int(i) >= 2:
             return 0
     if p == 10:  # Если нужно перевести в десятичную степень
