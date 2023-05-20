@@ -83,17 +83,12 @@ def handle_full_user(int_params):
             "group_id": groups[0].id,
             "group_name": groups[0].g_name
             }
+    
     results['test'] = {}
-    
-    count = 1
+    myList = []
     for test in tests:
-        results['test'][count] = {   
-                "id": test.id,
-                "test_name": test.test_name,
-                "test_score": test.test_score
-                }
-        count += 1
-    
+        myList.append({"id": test.id, "test_name": test.test_name, "test_score": test.test_score})
+    results['test'] = myList
     return results
 
 @app.route('/api/users/delete/<int:int_params>', methods=['DELETE'])
@@ -241,8 +236,6 @@ def kr1():
         db.session.add(new_test)
         db.session.commit()
     else:
-        print(db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
-                                      Tests.test_name.like("test1")).first() is None)
         db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test1")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
         db.session.commit()
@@ -262,8 +255,6 @@ def kr3():
         db.session.add(new_test)
         db.session.commit()
     else:
-        print(db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
-                                      Tests.test_name.like("test3")).first() is None)
         db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test3")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
         db.session.commit()
@@ -282,8 +273,6 @@ def kr4():
         db.session.add(new_test)
         db.session.commit()
     else:
-        print(db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
-                                      Tests.test_name.like("test4")).first() is None)
         db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test4")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
         db.session.commit()
