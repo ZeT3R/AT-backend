@@ -58,8 +58,8 @@ def form_json1(ret_json, in_json):
             templates["numb_with_system"][i]['result'] = from2(numb, system_to)
         else:
             templates["numb_with_system"][i]['result'] = fromP(numb, system_from, system_to)
-        templatesIN["numb_with_system"][i]['result'] = True if int(templatesIN["numb_with_system"][i]['result'], 10) ==\
-                                                               int(templates["numb_with_system"][i]['result'], 10) else False
+        templatesIN["numb_with_system"][i]['result'] = True if templatesIN["numb_with_system"][i]['result'] ==\
+                                                               templates["numb_with_system"][i]['result'] else False
         if templatesIN["numb_with_system"][i]['result']: count += 10
 
     templatesIN["score"] = count

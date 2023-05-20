@@ -71,6 +71,10 @@ def from10(number, p):  # Функци преобразования числа number из 10-чной в p-тую 
 def from2(number, p):  # Функйция преобразования числа number из 2-чной в p-тую систему счисления
     if type(number) is not str:  # Если пришла не строка, то
         number = str(number)  # Преобразовываем в строку
+    for i in number:
+        print(int(i), 2)
+        if int(i) >= 2:
+            return 0
     if p == 10:  # Если нужно перевести в десятичную степень
         return int(number, 2)  # То просто возвращаем, преобразовывая с помощью встроенной функции
     else:  # Иначе
@@ -81,5 +85,8 @@ def from2(number, p):  # Функйция преобразования числа number из 2-чной в p-тую 
 def fromP(number, p_in, p_out):  # Функйция преобразования числа number из p-той в любую систему счисления
     if type(number) is not str:  # Если не строка
         number = str(number)  # Преобразовываем в неё
+    for i in number:
+        if int(i) >= p_in:
+            return 0
     number = int(number, p_in)  # Преобразовываем из заданной в десятичную систему счисления
     return from10(number, p_out)  # И снова пихаем в функцию from10 :)
