@@ -1,7 +1,7 @@
 from app_project import app, db, request, render_template, form_json
 from app_project.models import Users, Group_list, Event, Tests
 from app_project import cross_origin
-import time
+from datetime import datetime
 
 #--------------------DEFAULT ROUTE(MAIN PAGE)--------------------
 @app.route('/', defaults={'path': ''})
@@ -142,6 +142,12 @@ def handle_grouplist_delete(int_params):
     db.session.commit()
     return {"message": f"group with id:{int_params} has been deleted successfully."}
 
+@app.route('/api/time', methods=['GET'])
+@cross_origin()
+def handle_time():
+    now = datetime.now()
+    return(str(now))
+
 ##--------------------COMPARE POSTED USER WITH USERS THAT EXIST IN TABLE--------------------
 @app.route('/api/user_compare', methods=['POST'])
 @cross_origin()
@@ -177,7 +183,7 @@ def handler_g_ret(int_params):
         return {"groups": results}
 
 
-@app.route("/api/tests", methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route("/api/tests", methods=['GET', 'POST', 'PUT'])
 @cross_origin()
 def handle_tests():
     if request.method == 'GET':
