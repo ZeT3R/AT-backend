@@ -2,6 +2,7 @@ import json
 import shutil
 from app_project.test_packages.transfer import *
 from app_project.test_packages.algorithms import *
+from app_project.test_packages.second_test_helper import *
 
 
 def check_overflow(str1, str2):
@@ -72,6 +73,29 @@ def form_json1(ret_json, in_json):
 
     return [templates, templatesIN]
 
+
+def form_json2(ret_json, in_json):
+    ret_json = clear_json(ret_json, "app_project/json_post/format_3_json.json")
+
+    with open(ret_json) as f1:
+        templates = json.load(f1)
+    templatesIN = in_json
+
+    count = 0
+    var = trues[templatesIN["segment"]]
+    varik = create_var(var, templatesIN["offset"], templatesIN["segment"])
+    print(varik)
+
+    my_var_save = varik.copy()
+    varik, Fsdnf, Fsknf, func_list_DNF, func_list_KNF = modify_var(varik,
+                                                                    templatesIN["offset"],
+                                                                    templatesIN["segment"])  # Получаем СДНФ и СКНФ и меняем таблицу
+    print("Fсднф = ", Fsdnf, '\n\n', "Fскнф = ", Fsknf)  # Проверяем
+    print(varik)
+
+
+
+    return [templates, templatesIN]
 
 def form_json3(ret_json, in_json):
     ret_json = clear_json(ret_json, "app_project/json_post/format_3_json.json")
