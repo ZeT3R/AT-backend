@@ -30,7 +30,9 @@ def from10to2(a, precision):
 
 
 def from10to8(a, a_dvoich_whole, a_dvoich_frac):
-    oct_frac = []  # Список для дробной части, переведённой в восьмеричную систему счисления
+    oct_frac = []  # Список для дробной части, переведённой в восьмеричную систему
+    while len(a_dvoich_frac) % 3 != 0:
+        a_dvoich_frac.append(0)
     for i in range(len(a_dvoich_frac) // 3):  # Идём по циклу до тех пор, пока у нас триплеты не выходят за границы
         triplet = a_dvoich_frac[:3]  # Берём первые три числа от запятой
         triplet = "".join(map(str, triplet))  # Переводим в строку
@@ -46,6 +48,8 @@ def from10to8(a, a_dvoich_whole, a_dvoich_frac):
 
 def from10to16(a, a_dvoich_whole, a_dvoich_frac):
     hex_frac = []  # Массив для шестандцатеричного представления числа
+    while len(a_dvoich_frac) % 4 != 0:
+        a_dvoich_frac.append(0)
     for i in range(len(a_dvoich_frac) // 4):  # Идём пока есть квадралеты
         quadro = a_dvoich_frac[:4]  # Берём первые 4 числа
         quadro = "".join(map(str, quadro))  # Преобразовываем в строку
