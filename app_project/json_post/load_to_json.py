@@ -44,6 +44,9 @@ def form_json1(ret_json, in_json):
     if templatesIN["A_hex"]: count += 15
 
     for i in range(len(templatesIN["numb_with_system"])):
+        if templatesIN["numb_with_system"][i]['numb'] == "":
+            templatesIN["numb_with_system"][i]['result'] = False
+            continue
         numb = int(templatesIN["numb_with_system"][i]['numb'], 10)
         system_from = int(templatesIN["numb_with_system"][i]['system_from'], 10)
         system_to = int(templatesIN["numb_with_system"][i]['system_to'], 10)
