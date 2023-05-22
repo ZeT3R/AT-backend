@@ -297,7 +297,7 @@ def handle_events():
                            "event_id": e_user.event_id} for e_user in events_users if e_user.event_id == event.id]
             } for event in events]
         
-        return {"users": results}
+        return results
     
     elif request.method == 'POST':
         data = request.get_json()
@@ -311,9 +311,8 @@ def handle_events():
         
         temp_max_id = db.session.query(func.max(Event.id)).scalar()
         last_event = Event.query.filter(Event.id.like( temp_max_id)).scalar()
-        data_users = data['users']
-        for d_user in data_users:
-            new_e_user = Event_users(user_id = data_users[0]['user_id'],
+        for d_user in data['users']:
+            new_e_user = Event_users(user_id = d_user['user_id'],
                                      event_id = last_event.id)
             db.session.add(new_e_user)
             db.session.commit()      
@@ -324,8 +323,19 @@ def handle_events():
         db.session.query(Event).filter(Event.id == data['id']).update({"date": data['date'], 
                                                                    "length": data['length'],
                                                                    "test_num": data['test_num'],
-                                                                   "test_status": data['test_status']}, synchronize_session='fetch')
+                                                                   "test_status": data['test_status'],
+                                                                   "description": data['description']}, synchronize_session='fetch')
         db.session.commit()
+        
+        db.session.query(Event_users).filter(Event_users.event_id == data['id']).delete(synchronize_session='fetch')
+        db.session.commit()
+        
+        for user in data['users']:
+            new_e_user = Event_users(user_id = user['user_id'],
+                                     event_id = data['id'])
+            db.session.add(new_e_user)
+            db.session.commit()
+        return {"message": f"event {data['id']} has been updated successfully"} 
         
 @app.route('/api/event/<int:int_params>', methods=['GET'])
 @cross_origin()
