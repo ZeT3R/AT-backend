@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.sql import text
+from sqlalchemy import func
 import app_project.json_post.load_to_json as form_json
 from flask_cors import cross_origin
 

@@ -1,6 +1,6 @@
 from app_project import app, db, request, render_template, form_json
-from app_project.models import Users, Group_list, Event, Tests
-from app_project import cross_origin
+from app_project.models import Users, Group_list, Event, Event_users, Tests
+from app_project import cross_origin, func
 from datetime import datetime
 
 #--------------------DEFAULT ROUTE(MAIN PAGE)--------------------
@@ -81,7 +81,7 @@ def handle_full_user(int_params):
     
     results['group'] = {
             "group_id": groups[0].id,
-            "group_name": groups[0].g_name
+            "name": groups[0].g_name
             }
     
     results['test'] = {}
@@ -187,8 +187,8 @@ def handle_tests():
             {
                 "id": test.id,
                 "user_id": test.user_id,
-                "name": test.test_name,
-                "score": test.test_score
+                "test_name": test.test_name,
+                "test_score": test.test_score
             } for test in tests]
         return {"count": len(results), "tests": results}
     
@@ -196,8 +196,8 @@ def handle_tests():
         if request.is_json:
             data = request.get_json()
             new_test = Tests(user_id = data['user_id'],
-                             test_name = data['name'],
-                             test_score = data['score'])
+                             test_name = data['test_name'],
+                             test_score = data['test_score'])
             db.session.add(new_test)
             db.session.commit()
             return {"message": f"{new_test.user_id} users {new_test.test_name} has been created successfully."}
@@ -208,9 +208,9 @@ def handle_tests():
         if request.is_json:
             data = request.get_json()
             db.session.query(Tests).filter(Tests.user_id.like(data["stud_id"]),
-                                           Tests.test_name.like(data["name"])).update({"test_score": data['score']}, synchronize_session='fetch')
+                                           Tests.test_name.like(data["test_name"])).update({"test_score": data['test_score']}, synchronize_session='fetch')
             db.session.commit()
-            return {"message": f"{data['stud_id']} users {data['test_name']} has been updated successfully."}
+            return {"message": f"{data['stud_id']} users {data['name']} has been updated successfully."}
         else:
             return {"error": "The request payload is not in JSON format"} 
 
@@ -278,3 +278,77 @@ def kr4():
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
+@app.route('/api/event', methods=['GET', 'POST', 'PUT'])
+@cross_origin()
+def handle_events():
+    if request.method == 'GET':
+        events = Event.query.all()
+        events_users = Event_users.query.all()
+        results = [
+            {
+                "id": event.id,
+                "date": event.date,
+                "length": event.length,
+                "test_num": event.test_num,
+                "test_status": event.test_status,
+                "users": [{"id": e_user.id,
+                           "user_id": e_user.user_id,
+                           "event_id": e_user.event_id} for e_user in events_users if e_user.event_id == event.id]
+            } for event in events]
+        
+        return {"users": results}
+    
+    elif request.method == 'POST':
+        data = request.get_json()
+        new_event = Event(date = data['date'],
+                         length = data['length'],
+                         test_num = data['test_num'],
+                         test_status = data['test_status'])
+        db.session.add(new_event)
+        db.session.commit()
+        
+        temp_max_id = db.session.query(func.max(Event.id)).scalar()
+        last_event = Event.query.filter(Event.id.like( temp_max_id)).scalar()
+        data_users = data['users']
+        for d_user in data_users:
+            new_e_user = Event_users(user_id = data_users[0]['user_id'],
+                                     event_id = last_event.id)
+            db.session.add(new_e_user)
+            db.session.commit()      
+        return {"message": f"event {last_event.id} has been created successfully."}
+    
+    #elif request.method == 'PUT':
+        #data = request.get_json()        
+        #db.session.query(Users).filter(Users.id == data['id']).update({"id": data['id'], 
+                                                                   #"login": data['login'], 
+                                                                   #"name": data['name'],
+                                                                   #"password": data['password'],
+                                                                   #"role": data['role'],
+                                                                   #"group_id": data['group_id']}, synchronize_session='fetch')
+        #db.session.commit()
+        
+@app.route('/api/event/<int:int_params>', methods=['GET'])
+@cross_origin()
+def handle_spec_events(int_params):
+    if request.method == 'GET':
+        
+        events = Event.query.filter(Event.id.like(int_params)).scalar()
+        events_users = Event_users.query.filter(Event_users.event_id.like(events.id))
+        
+        results = {"event": {
+            "id": events.id,
+            "date": events.date,
+            "length": events.length,
+            "test_num": events.test_num,
+            "test_status": events.test_status
+            }
+        }
+
+    results['users'] = {}
+    myList = []
+    for e_user in events_users:
+        myList.append({"id": e_user.id, 
+                       "user_id": e_user.user_id, 
+                       "event_id": e_user.event_id})
+    results['users'] = myList
+    return results

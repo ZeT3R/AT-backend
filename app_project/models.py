@@ -25,13 +25,13 @@ class Event(db.Model):
     length = db.Column(INTEGER(unsigned=True))
     test_num = db.Column(db.Integer)
     test_status = db.Column(db.Integer)
-    
-class Event_groups(db.Model):
-    __tablename__ = 'event_groups'
+
+class Event_users(db.Model):
+    __tablename__ = 'event_users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    group_id = db.Column(db.Integer)
-    event_id = db.Column(db.Integer)
-    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))    
+
 class Tests(db.Model):
     __tablename__= 'tests'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
