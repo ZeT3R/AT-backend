@@ -336,8 +336,8 @@ def handle_events():
             db.session.add(new_e_user)
             db.session.commit()
         return {"message": f"event {data['id']} has been updated successfully"} 
-        
-@app.route('/api/event/<int:int_params>', methods=['GET'])
+                
+@app.route('/api/event/<int:int_params>', methods=['GET', 'DELETE'])
 @cross_origin()
 def handle_spec_events(int_params):
     if request.method == 'GET':
@@ -355,11 +355,16 @@ def handle_spec_events(int_params):
             }
         }
 
-    results['users'] = {}
-    myList = []
-    for e_user in events_users:
-        myList.append({"id": e_user.id, 
-                       "user_id": e_user.user_id, 
-                       "event_id": e_user.event_id})
-    results['users'] = myList
-    return results
+        results['users'] = {}
+        myList = []
+        for e_user in events_users:
+            myList.append({"id": e_user.id, 
+                        "user_id": e_user.user_id, 
+                        "event_id": e_user.event_id})
+        results['users'] = myList
+        return results
+    
+    elif request.method == 'DELETE':
+        db.session.query(Event).filter(Event.id == int_params).delete(synchronize_session='fetch')
+        db.session.commit()
+        return {"message": f"event with id:{int_params} has been deleted successfully."}
