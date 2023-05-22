@@ -291,6 +291,7 @@ def handle_events():
                 "length": event.length,
                 "test_num": event.test_num,
                 "test_status": event.test_status,
+                "description": event.description,
                 "users": [{"id": e_user.id,
                            "user_id": e_user.user_id,
                            "event_id": e_user.event_id} for e_user in events_users if e_user.event_id == event.id]
@@ -303,7 +304,8 @@ def handle_events():
         new_event = Event(date = data['date'],
                          length = data['length'],
                          test_num = data['test_num'],
-                         test_status = data['test_status'])
+                         test_status = data['test_status'],
+                         description = data['description'])
         db.session.add(new_event)
         db.session.commit()
         
@@ -317,15 +319,13 @@ def handle_events():
             db.session.commit()      
         return {"message": f"event {last_event.id} has been created successfully."}
     
-    #elif request.method == 'PUT':
-        #data = request.get_json()        
-        #db.session.query(Users).filter(Users.id == data['id']).update({"id": data['id'], 
-                                                                   #"login": data['login'], 
-                                                                   #"name": data['name'],
-                                                                   #"password": data['password'],
-                                                                   #"role": data['role'],
-                                                                   #"group_id": data['group_id']}, synchronize_session='fetch')
-        #db.session.commit()
+    elif request.method == 'PUT':
+        data = request.get_json()        
+        db.session.query(Event).filter(Event.id == data['id']).update({"date": data['date'], 
+                                                                   "length": data['length'],
+                                                                   "test_num": data['test_num'],
+                                                                   "test_status": data['test_status']}, synchronize_session='fetch')
+        db.session.commit()
         
 @app.route('/api/event/<int:int_params>', methods=['GET'])
 @cross_origin()
@@ -340,7 +340,8 @@ def handle_spec_events(int_params):
             "date": events.date,
             "length": events.length,
             "test_num": events.test_num,
-            "test_status": events.test_status
+            "test_status": events.test_status,
+            "description": events.description
             }
         }
 

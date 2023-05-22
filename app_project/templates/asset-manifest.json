@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.65d27b1c.css",
-    "main.js": "/static/js/main.0c85969c.js",
+    "main.css": "/static/css/main.e4a0ae60.css",
+    "main.js": "/static/js/main.ba16d331.js",
     "static/media/bmstu-logo.svg": "/static/media/bmstu-logo.374be65eb7443502961e9fe8fa40937e.svg",
     "static/media/efremov.jpg": "/static/media/efremov.f30109c17f466b33a819.jpg",
     "static/media/img1.jpg": "/static/media/img1.b57664e1c4d22b79cb58.jpg",
@@ -16,15 +16,19 @@
     "static/media/img9.jpg": "/static/media/img9.ad57d696dadad7f283cb.jpg",
     "static/media/segments.jpg": "/static/media/segments.c96525fc59104205313c.jpg",
     "static/media/vk.svg": "/static/media/vk.850661cb96f2301a86d9daee7474ea15.svg",
-    "static/media/user.svg": "/static/media/user.8c41d273d67184a9af736e8e2d5abadc.svg",
+    "static/media/user.svg": "/static/media/user.fd1dd7c232b1b2603656f2a129c49cc1.svg",
     "static/media/youtube.svg": "/static/media/youtube.b0471c1134f057fc42322993af5e7bfc.svg",
+    "static/media/checkbox.svg": "/static/media/checkbox.4d31fd4905517f4ed173a7b08d71b067.svg",
+    "static/media/lens.svg": "/static/media/lens.1c810d121a21e599630622a14269c8dc.svg",
     "index.html": "/index.html",
+    "static/media/edit.svg": "/static/media/edit.6344e1d79b07fcb55e064ec515802bbc.svg",
     "static/media/telegram.svg": "/static/media/telegram.71c9cb6ebbbe700ea01f21ce48853cbf.svg",
-    "main.65d27b1c.css.map": "/static/css/main.65d27b1c.css.map",
-    "main.0c85969c.js.map": "/static/js/main.0c85969c.js.map"
+    "static/media/close.svg": "/static/media/close.712cc7618fd46c5eb8309c8c527f3284.svg",
+    "main.e4a0ae60.css.map": "/static/css/main.e4a0ae60.css.map",
+    "main.ba16d331.js.map": "/static/js/main.ba16d331.js.map"
   },
   "entrypoints": [
-    "static/css/main.65d27b1c.css",
-    "static/js/main.0c85969c.js"
+    "static/css/main.e4a0ae60.css",
+    "static/js/main.ba16d331.js"
   ]
 }
