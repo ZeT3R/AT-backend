@@ -3,7 +3,7 @@ import shutil
 from app_project.test_packages.transfer import *
 from app_project.test_packages.algorithms import *
 from app_project.test_packages.second_test_helper import *
-
+import pandas
 
 def check_overflow(str1, str2):
     if ((str1 == 'OVERFLOW' or str1 == 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ') and (
@@ -75,7 +75,7 @@ def form_json1(ret_json, in_json):
 
 
 def form_json2(ret_json, in_json):
-    ret_json = clear_json(ret_json, "app_project/json_post/format_3_json.json")
+    ret_json = clear_json(ret_json, "app_project/json_post/format_2_json.json")
 
     with open(ret_json) as f1:
         templates = json.load(f1)
@@ -92,6 +92,42 @@ def form_json2(ret_json, in_json):
                                                                     templatesIN["segment"])  # Получаем СДНФ и СКНФ и меняем таблицу
     print("Fсднф = ", Fsdnf, '\n\n', "Fскнф = ", Fsknf)  # Проверяем
     print(varik)
+
+    Carno = create_carno(varik[templatesIN["segment"]])
+    print(Carno)
+    carno_minim = carno_minimization[templatesIN["segment"] + "_" + str(templatesIN["offset"])]
+    print(carno_minim)
+    Tknf = carno_minim["TKNF"]
+    Tdnf = carno_minim["TDNF"]
+
+    Tknf_pirs = Pirs(Tknf)  # запомнили результат
+    Tdnf_sheffer = Sheffer(Tdnf)  # запомнили результат
+
+    print(Tknf_pirs)
+    print(Tdnf_sheffer)
+
+    splitTdnf = Split_Tdnf(Tdnf)  # Присваиваем
+    splitTknf = Split_Tknf(Tknf)  # Присваиваем
+
+    print(splitTdnf)
+    print(splitTknf)
+
+    table1 = check_Table_tdnf(my_var_save, splitTdnf)  # Запоминаем первую таблицу СДНФ
+    table2 = check_Table_tknf(my_var_save, splitTknf)  # Запоминаем вторую таблицу СКНФ
+
+    for i in range(len(table1[templatesIN["segment"]])):
+        if table1[templatesIN["segment"]][i] == 'x':
+            continue
+        else:
+            if int(table1[templatesIN["segment"]][i]) != int(table1.iloc[:,-1][i]):
+                print("You suck, little boy, go fuck yourself!")
+
+    for i in range(len(table2[templatesIN["segment"]])):
+        if table2[templatesIN["segment"]][i] == 'x':
+            continue
+        else:
+            if int(table2[templatesIN["segment"]][i]) != int(table2.iloc[:,-1][i]):
+                print("You suck, little boy, go fuck yourself!")
 
 
 
