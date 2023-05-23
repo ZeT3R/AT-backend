@@ -24,7 +24,6 @@ class Event(db.Model):
     date = db.Column(db.DateTime)
     length = db.Column(INTEGER(unsigned=True))
     test_num = db.Column(db.Integer)
-    test_status = db.Column(db.Integer)
     description = db.Column(db.String(255))
 
 class Event_users(db.Model):
