@@ -290,7 +290,6 @@ def handle_events():
                 "date": event.date,
                 "length": event.length,
                 "test_num": event.test_num,
-                "test_status": event.test_status,
                 "description": event.description,
                 "users": [{"id": e_user.id,
                            "user_id": e_user.user_id,
@@ -301,10 +300,9 @@ def handle_events():
     
     elif request.method == 'POST':
         data = request.get_json()
-        new_event = Event(date = data['date'],
+        new_event = Event(date = datetime.strptime(data['date'], "%a, %d %b %Y %H:%M:%S %Z"),
                          length = data['length'],
                          test_num = data['test_num'],
-                         test_status = data['test_status'],
                          description = data['description'])
         db.session.add(new_event)
         db.session.commit()
@@ -320,10 +318,9 @@ def handle_events():
     
     elif request.method == 'PUT':
         data = request.get_json()        
-        db.session.query(Event).filter(Event.id == data['id']).update({"date": data['date'], 
+        db.session.query(Event).filter(Event.id == data['id']).update({"date": datetime.strptime(data['date'], "%a, %d %b %Y %H:%M:%S %Z"), 
                                                                    "length": data['length'],
                                                                    "test_num": data['test_num'],
-                                                                   "test_status": data['test_status'],
                                                                    "description": data['description']}, synchronize_session='fetch')
         db.session.commit()
         
@@ -350,7 +347,6 @@ def handle_spec_events(int_params):
             "date": events.date,
             "length": events.length,
             "test_num": events.test_num,
-            "test_status": events.test_status,
             "description": events.description
             }
         }
@@ -360,11 +356,11 @@ def handle_spec_events(int_params):
         for e_user in events_users:
             myList.append({"id": e_user.id, 
                         "user_id": e_user.user_id, 
-                        "event_id": e_user.event_id})
-        results['users'] = myList
+                        "event_id": e_user.event_id}) 
+        results['users'] = myList 
         return results
     
-    elif request.method == 'DELETE':
+    elif request.method == 'DELETE':      
         db.session.query(Event).filter(Event.id == int_params).delete(synchronize_session='fetch')
         db.session.commit()
         return {"message": f"event with id:{int_params} has been deleted successfully."}
