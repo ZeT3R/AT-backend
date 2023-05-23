@@ -53,38 +53,38 @@ carno_minimization = {
     "e_5": {"TDNF": "(x2 & x4) v (nx2 & x3)", "TKNF": "(nx2 v x4) & (x2 v x3)"},
     "e_6": {"TDNF": "(x2 & nx4) v (nx3 & nx4) v (nx2 & x3 & x4)", "TKNF": "(nx2 v nx4) & (x3 v nx4) & (x2 v nx3 v x4)"},
     "e_7": {"TDNF": "(x2 & x4) v (x2 & nx3) v (nx3 & x4)", "TKNF": "(nx3 v x4) & (x2 v x4) & (x2 v nx3)"},
-    "f_0": {"TDNF": "", "TKNF": ""},
-    "f_1": {"TDNF": "", "TKNF": ""},
-    "f_2": {"TDNF": "", "TKNF": ""},
-    "f_3": {"TDNF": "", "TKNF": ""},
-    "f_4": {"TDNF": "", "TKNF": ""},
-    "f_5": {"TDNF": "", "TKNF": ""},
-    "f_6": {"TDNF": "", "TKNF": ""},
-    "f_7": {"TDNF": "", "TKNF": ""},
-    "g_0": {"TDNF": "", "TKNF": ""},
-    "g_1": {"TDNF": "", "TKNF": ""},
-    "g_2": {"TDNF": "", "TKNF": ""},
-    "g_3": {"TDNF": "", "TKNF": ""},
-    "g_4": {"TDNF": "", "TKNF": ""},
-    "g_5": {"TDNF": "", "TKNF": ""},
-    "g_6": {"TDNF": "", "TKNF": ""},
-    "g_7": {"TDNF": "", "TKNF": ""},
-    "l_0": {"TDNF": "", "TKNF": ""},
-    "l_1": {"TDNF": "", "TKNF": ""},
-    "l_2": {"TDNF": "", "TKNF": ""},
-    "l_3": {"TDNF": "", "TKNF": ""},
-    "l_4": {"TDNF": "", "TKNF": ""},
-    "l_5": {"TDNF": "", "TKNF": ""},
-    "l_6": {"TDNF": "", "TKNF": ""},
-    "l_7": {"TDNF": "", "TKNF": ""},
-    "m_0": {"TDNF": "", "TKNF": ""},
-    "m_1": {"TDNF": "", "TKNF": ""},
-    "m_2": {"TDNF": "", "TKNF": ""},
-    "m_3": {"TDNF": "", "TKNF": ""},
-    "m_4": {"TDNF": "", "TKNF": ""},
-    "m_5": {"TDNF": "", "TKNF": ""},
-    "m_6": {"TDNF": "", "TKNF": ""},
-    "m_7": {"TDNF": "", "TKNF": ""}
+    "f_0": {"TDNF": "(x2 & x3) v (nx2 & nx3 & nx4)", "TKNF": "(nx2 v x3) & (x2 v nx3) & (x2 v nx4)"},
+    "f_1": {"TDNF": "(nx2 & nx3) v (x2 & x3 & x4)", "TKNF": "(nx2 v x3) & (nx3 v x4) & (x2 v nx3)"},
+    "f_2": {"TDNF": "(nx2 & nx4) v (nx2 & nx3)", "TKNF": "(nx2 & (nx3 v nx4)"},
+    "f_3": {"TDNF": "(nx2 & x4) v (nx2 & x3)", "TKNF": "nx2 & (x3 v x4)"},
+    "f_4": {"TDNF": "(nx2 & x3) v (x2 & nx3 & nx4)", "TKNF": "(nx2 v nx4) & (x2 v x3) & (x1 v nx3)"},
+    "f_5": {"TDNF": "(x2 & nx3) v (x1 & x3 & x4)", "TKNF": "(nx2 v nx3) & (x2 v x3) & (x2 v x4)"},
+    "f_6": {"TDNF": "(x2 & nx3) v (x2 & nx4)", "TKNF": "x2 & (nx3 v nx4)"},
+    "f_7": {"TDNF": "(x2 & x3) v (x2 & x4)", "TKNF": "x2 & (x3 v x4)"},
+    "g_0": {"TDNF": "x1 v (x2 & nx3) v (x2 & nx4) v (nx2 & x3 & x4)", "TKNF": "(x1 v x2 v x4) & (nx2 v nx3 v nx4) & (x1 v x2 v x3)"},
+    "g_1": {"TDNF": "x2 v (x1 & x4) v (x1 & x3)", "TKNF": "(x1 v x2) & (x2 v x3 v x4)"},
+    "g_2": {"TDNF": "(x2 & x3) v (x1 & x3) v (x2 & x4) v (x1 & nx4)", "TKNF": "(x1 v x2) & (x2 v x3 v nx4) & (x1 v x3 v x4)"},
+    "g_3": {"TDNF": "(x1 & x4) v (x1 & nx3) v (x2 & x3)", "TKNF": "(x1 v x3) & (x1 v x2) & (x2 v nx3 v x4)"},
+    "g_4": {"TDNF": "(x1 & nx3) v (nx2 & nx4) v (x2 & x3 & x4)", "TKNF": "(x1 v x4) & (x1 v x3) & (x2 v nx3 v nx4)"},
+    "g_5": {"TDNF": "nx2 v (x1 & x3) v (x1 & x4)", "TKNF": "x1 & (nx2 v x3 v x4)"},
+    "g_6": {"TDNF": "(x1 & x3) v (nx2 & x4) v (x1 & x2 & nx4)", "TKNF": "x1 & (x2 v x3 v x4) & (nx2 v x3 v nx4)"},
+    "g_7": {"TDNF": "(x2 & nx3) v (nx2 & x3) v (nx1 & nx3) v (x1 & x2 & x4)", "TKNF": "(nx1 v x2 v x3) & (nx2 v nx3 v x4) & (x1 v nx3)"},
+    "l_0": {"TDNF": "(x2 & x3) v (nx1 & nx2 & x4)", "TKNF": "nx1 & (nx2 v x3) & (x2 v x4)"},
+    "l_1": {"TDNF": "(nx3 & nx4) v (nx1 & nx2 & nx4) v (x2 & x3 & x4)", "TKNF": "(x3 v nx4) & (x2 v nx4) & (nx1 v nx3) & (nx2 v nx3 v x4)"},
+    "l_2": {"TDNF": "(x1 & nx3) v (nx3 & x4) v (nx1 & nx2 & x4)", "TKNF": "(x1 v x4) & (nx1 v nx3) & (nx2 v nx3)"},
+    "l_3": {"TDNF": "(nx1 & nx4) v (x3 & nx4) v (x1 & nx3 & x4)", "TKNF": "(x1 v nx4) & (nx3 v nx4) v (nx1 v x3 v x4)"},
+    "l_4": {"TDNF": "(nx1 & x4) v (x1 & x3)", "TKNF": "(nx1 v x3) & (x1 v x4)"},
+    "l_5": {"TDNF": "(nx3 & nx4) v (nx1 & nx4) v (x1 & x3 & x4)", "TKNF": "(x3 v nx4) & (x1 v nx4) & (nx1 v nx3 v x4)"},
+    "l_6": {"TDNF": "(x2 & nx3) v (nx3 & x4) v (nx1 & x4)", "TKNF": "(nx1 v nx3) & (nx3 v x4) & (x2 v x4)"},
+    "l_7": {"TDNF": "(x3 & nx4) v (x1 & nx2 & nx4) v (x2 & nx3 & x4)", "TKNF": "x1 & (nx3 v nx4) & (x2 v nx4) & (nx2 v x3 v x4)"},
+    "m_0": {"TDNF": "(x1 & x4) v (nx2 & x3)", "TKNF": "nx2 & (x1 v x3) & (x3 v x4)"},
+    "m_1": {"TDNF": "(x1 & x3) v (nx2 & x3 & x4) v (x2 & nx3 & nx4)", "TKNF": "(nx2 v nx3) & (x3 v nx4) & (x2 v x3) & (x1 v x2 v x4)"},
+    "m_2": {"TDNF": "(x2 & nx3) v (x1 & x3 & x4)", "TKNF": "(x1 v nx3) & (x2 v x4) & (x2 v x3)"},
+    "m_3": {"TDNF": "(x1 & x2) v (x2 & x3 & nx4) v (x2 & nx3 & x4)", "TKNF": "x2 & (nx3 v nx4) & (x1 v x3 v x4)"},
+    "m_4": {"TDNF": "(x2 & x3) v (x1 & x2 & x4)", "TKNF": "x2 & (x1 v x3) & (x3 v x4)"},
+    "m_5": {"TDNF": "(x1 & x2 & x3) v (x2 & x3 & x4) v (nx2 & nx3 & nx4)", "TKNF": "(x2 v nx3) & (x3 v nx4) & (nx2 v x3) & (x1 v x4)"},
+    "m_6": {"TDNF": "(nx2 & nx3) v (x1 & x2 & x3 & x4)", "TKNF": "x1 & (x2 v nx3) & (nx2 v x3) & (nx3 v x4)"},
+    "m_7": {"TDNF": "(nx2 & x3 & nx4) v (nx1 & nx4) v (nx2 & nx3 & x4)", "TKNF": "nx2 & (nx3 v nx4) & (nx1 v x3 v x4)"}
 }
 
 import copy  # Для хард копирования значений таблицы
@@ -94,14 +94,15 @@ from thefuzz import fuzz as f
 
 def Pirs(Tknf):
     Tknf = list(Tknf)  # Превартили в список
-    Tknf = ["↓" if x == "&" or x == "v" else x for x in Tknf]  # Заменили все знаки на стрелочку
+    Tknf = [">" if x == "&" or x == "v" else x for x in Tknf]  # Заменили все знаки на стрелочку
     for i, val in enumerate(Tknf):  # Пробегаемся по символам
         if val == "n":  # Если встретили н
             x_save = ''.join(Tknf[i + 1]) + Tknf[i + 2]  # Берём икс и цифру, без н
             del Tknf[i:i + 2]  # удаляем nxX
-            Tknf[i] = '(' + x_save + " ↓ " + x_save + ')'  # собираем строчку
+            Tknf[i] = '(' + x_save + " > " + x_save + ')'  # собираем строчку
     Tknf = ''.join(Tknf)  # переводим в строку
     return Tknf  # возвращаем
+
 
 
 def Kvaina_DNF(Fsdnf):
@@ -112,8 +113,8 @@ def Kvaina_DNF(Fsdnf):
     term_list = [[""] * 0 for i in range(len(Fsdnf))]
     for i in range(len(Fsdnf)):
         term = Fsdnf[i]  # Берём первый терм
-        for k in range(term.count('^') + 1):  # Бежим по количеству знаков определённом терме
-            split = term.find('^')  # Ищем позицию знака
+        for k in range(term.count('&') + 1):  # Бежим по количеству знаков определённом терме
+            split = term.find('&')  # Ищем позицию знака
             if (split != -1):  # Если знаки есть
                 term_list[i].append(term[:split])  # Берём всё до знака (Кроме скобки в начале и пробела)
                 term = term[split + 1:]  # Срезаем всё до знака и берём то, что осталось
@@ -149,7 +150,7 @@ def Kvaina_DNF(Fsdnf):
 
     ret = []
     for i in range(len(term_list)):
-        ret.append('^'.join(term_list[i]))
+        ret.append('&'.join(term_list[i]))
     return (ret)
 
 
@@ -540,7 +541,7 @@ def Quine_McCluskey(function, ftype, my_var):
             else:
                 continue
             if ftype == 'DNF':
-                term = term + ' ^ '
+                term = term + ' & '
             else:
                 term = term + ' v '
         term = term[:-3]
@@ -668,6 +669,165 @@ def check_Table_tknf(table, splitTknf):
     return table_changed  # Возвращаем
 
 
+def Split_Pirs(Tknf_pirs):
+    tknf_check = []  # создали список
+    for i in range(Tknf_pirs.count(") > (") + 1):  # Смотрим, сколько знаков и прибавляем 1 к значению
+        if (Tknf_pirs.find(') > (') != -1):  # если нашли знак
+            tknf_check.append(Tknf_pirs[:Tknf_pirs.find(") > (") + 1])  # добавляем всё до знака
+            Tknf_pirs = ''.join(Tknf_pirs[Tknf_pirs.find(") > (") + 4:])  # Срезаем строку
+    else:  # Если нет знака
+        tknf_check.append(Tknf_pirs)  # Значит срезали всё до последнего терма. ПРосто прибавляем
+    return tknf_check  # Возвраащем
+
+
+def Split_Sheffer(Tdnf_sheffer):
+    tdnf_check = []  # создали список
+    for i in range(Tdnf_sheffer.count(") / (") + 1):  # Смотрим, сколько знаков и прибавляем 1 к значению
+        if Tdnf_sheffer.find(') / (') != -1:
+            tdnf_check.append(Tdnf_sheffer[:Tdnf_sheffer.find(") / (") + 1])  # добавляем всё до знака
+            Tdnf_sheffer = ''.join(Tdnf_sheffer[Tdnf_sheffer.find(") / (") + 4:])  # Срезаем строку
+    else:  # Если нет знака
+        tdnf_check.append(Tdnf_sheffer)  # Значит срезали всё до последнего терма. ПРосто прибавляем
+        # print(tdnf_check)
+    return tdnf_check  # Возвраащем
+
+
+def check_Table_Pirs(table, Tknf_pirs):
+    # print(pirs)
+    pirs = Split_Pirs(Tknf_pirs)
+    table_changed = table.copy()  # Сохраняеи таблицу, чтобы не изменить её
+    names = []  # Имена для столбцов новой таблицы
+    orders = []  # Имена для последоватлньости буковок в столбцах
+    for i in range(len(pirs)):  # Сколько термов расспличенных
+        term_list = []  # Создаём список
+        term = pirs[i]  # Берём первый терм
+        for k in range(term.count('>') + 1):  # Бежим по количеству знаков определённом терме
+            split = term.find('>')  # Ищем позицию знака
+            if (split != -1):  # Если знаки есть
+                term_list.append(term[1:split - 1])  # Берём всё до знака (Кроме скобки в начале и пробела)
+                term = term[split + 1:]  # Срезаем всё до знака и берём то, что осталось
+            else:  # Если же больше нет знака
+                term_list.append(term[1:-1])  # Берём всё кроме скобок
+        check = term_list[0]
+        for j in range(1, len(term_list)):
+            if check == term_list[j]:
+                term_list[j] = term_list[j] + ')'
+            check = term_list[j]
+        term_list = dict.fromkeys(term_list, [])  # Переводим в слвоарь
+        keys = list(term_list)  # Запоминаем ключи
+        order = "KLMNOPRST"  # Список с названиями столбцов
+        name = '>'.join(keys)  # Соединяем ключи (иксы) и между ними ставим знак
+        if name[0] == '(':
+            name = name + ')'
+        elif name[-1] == ')' and name.find('(') == -1:
+            name = '(' + name
+        names.append(order[i] + '=' + name)  # Собираем название
+        orders.append(order[i])  # Берём итую букву из строки
+        for j in range(len(keys)):
+            keys[j] = keys[j].replace('(', '')
+            keys[j] = keys[j].replace(')', '')
+
+        for j in range(len(term_list)):  # Идёт по каждому иксу
+            col = keys[j]  # Запоминаем значение ключа
+            term_list[col] = []  # зануляем значение списка значений
+            for count in range(16):  # 16 значений всего
+                term_list[col].append(table[col][count])  # То заполняем так как есть
+        fin = []  # Финальная сборкf
+        if names[i].count('(') > 0 and names[i].count(')') > 0 and names[i][2] != '(':
+            for l in range(16):  # 16 значений
+                fin.append(int(term_list[keys[-1]][l]))  # Первый ключ - все значения
+            # for h in range(len(keys)-1, -4, -1): # По всем ключам кроме первого
+            for h in range(len(keys) - 2, -1, -1):
+                for l in range(16):  # 16 значений
+                    fin[l] = int(not (fin[l] | int(term_list[keys[h]][l])))  # Побитовое сложение
+        else:
+            for l in range(16):  # 16 значений
+                fin.append(int(term_list[keys[0]][l]))  # Первый ключ - все значения
+            for h in range(1, len(keys)):  # По всем ключам кроме первого
+                for l in range(16):  # 16 значений
+                    fin[l] = int(not (fin[l] | int(term_list[keys[h]][l])))  # Побитовое сложение
+        table_changed[names[i]] = fin  # Создаём столбец со значениями в таблице
+    name = list(table.columns)[4] + "="
+    name = name + '>'.join(orders)  # Формируем название последнего столбца
+    names.append(name)  # Добавляем новое имя
+
+    final_col = []
+    final_col = (table.iloc[:, -1])
+
+    table_changed[names[len(names) - 1]] = final_col  # Создаём последний столбец в таблице
+    # table_changed.pop("СДНФ") # Удаляем из таблицы колонки СДНФ
+    # table_changed.pop("СКНФ") # И СКНФ
+    return table_changed  # Возвращаем
+
+
+def check_Table_Sheffer(table, Tdnf_sheffer):
+    # print(pirs)
+    sheffer = Split_Sheffer(Tdnf_sheffer)
+    table_changed = table.copy()  # Сохраняеи таблицу, чтобы не изменить её
+    names = []  # Имена для столбцов новой таблицы
+    orders = []  # Имена для последоватлньости буковок в столбцах
+    for i in range(len(sheffer)):  # Сколько термов расспличенных
+        term_list = []  # Создаём список
+        term = sheffer[i]  # Берём первый терм
+        for k in range(term.count('/') + 1):  # Бежим по количеству знаков определённом терме
+            split = term.find('/')  # Ищем позицию знака
+            if (split != -1):  # Если знаки есть
+                term_list.append(term[1:split - 1])  # Берём всё до знака (Кроме скобки в начале и пробела)
+                term = term[split + 1:]  # Срезаем всё до знака и берём то, что осталось
+            else:  # Если же больше нет знака
+                term_list.append(term[1:-1])  # Берём всё кроме скобок
+        check = term_list[0]
+        for j in range(1, len(term_list)):
+            if check == term_list[j]:
+                term_list[j] = term_list[j] + ')'
+            check = term_list[j]
+        term_list = dict.fromkeys(term_list, [])  # Переводим в слвоарь
+        keys = list(term_list)  # Запоминаем ключи
+        order = "KLMNOPRST"  # Список с названиями столбцов
+        name = '/'.join(keys)  # Соединяем ключи (иксы) и между ними ставим знак
+        if name[0] == '(':
+            name = name + ')'
+        elif name[-1] == ')' and name.find('(') == -1:
+            name = '(' + name
+        names.append(order[i] + '=' + name)  # Собираем название
+        orders.append(order[i])  # Берём итую букву из строки
+        for j in range(len(keys)):
+            keys[j] = keys[j].replace('(', '')
+            keys[j] = keys[j].replace(')', '')
+
+        for j in range(len(term_list)):  # Идёт по каждому иксу
+            col = keys[j]  # Запоминаем значение ключа
+            term_list[col] = []  # зануляем значение списка значений
+            for count in range(16):  # 16 значений всего
+                term_list[col].append(table[col][count])  # То заполняем так как есть
+        fin = []  # Финальная сборкf
+        if names[i].count('(') > 0 and names[i].count(')') > 0 and names[i][2] != '(':
+            for l in range(16):  # 16 значений
+                fin.append(int(term_list[keys[-1]][l]))  # Первый ключ - все значения
+            # for h in range(len(keys)-1, -4, -1): # По всем ключам кроме первого
+            for h in range(len(keys) - 2, -1, -1):
+                for l in range(16):  # 16 значений
+                    fin[l] = int(not (fin[l] & int(term_list[keys[h]][l])))  # Побитовое сложение
+        else:
+            for l in range(16):  # 16 значений
+                fin.append(int(term_list[keys[0]][l]))  # Первый ключ - все значения
+            for h in range(1, len(keys)):  # По всем ключам кроме первого
+                for l in range(16):  # 16 значений
+                    fin[l] = int(not (fin[l] & int(term_list[keys[h]][l])))  # Побитовое сложение
+        table_changed[names[i]] = fin  # Создаём столбец со значениями в таблице
+    name = list(table.columns)[4] + "="
+    name = name + '/'.join(orders)  # Формируем название последнего столбца
+    names.append(name)  # Добавляем новое имя
+
+    final_col = []
+    final_col = (table.iloc[:, -1])
+
+    table_changed[names[len(names) - 1]] = final_col  # Создаём последний столбец в таблице
+    # table_changed.pop("СДНФ") # Удаляем из таблицы колонки СДНФ
+    # table_changed.pop("СКНФ") # И СКНФ
+    return table_changed  # Возвращаем
+
+
 def Split_Tdnf(Tdnf):
     tdnf_check = []  # создали список
     for i in range(Tdnf.count("v") + 1):  # Смотрим, сколько знаков и прибавляем 1 к значению
@@ -701,6 +861,20 @@ def Sheffer(Tdnf):
             Tdnf[i] = '(' + x_save + " / " + x_save + ')'  # Собрали строчку
     Tdnf = ''.join(Tdnf)  # преобразовали в строку
     return Tdnf  # вернули
+
+
+def format_DNF(NF):
+    for i in range(len(NF)):
+        NF[i] = '(' + NF[i] + ')'
+    NF = ' v '.join(NF)
+    return NF
+
+
+def format_KNF(NF):
+    for i in range(len(NF)):
+        NF[i] = '(' + NF[i] + ')'
+    NF = ' & '.join(NF)
+    return NF
 
 
 def create_carno(var_seg):  # Функция создания карты Карно
@@ -794,9 +968,9 @@ def modify_str(func, t_func):  # Функция изменения строки.
     if t_func == 'SDNF':  # Если СДНФ
         for i in range(4):  # 4 терма
             if func[i] == '0':  # Если у нас нолик, то
-                func[i] = ' nx' + str(i + 1) + ' ^'  # Пишем не икс i+1. У нас же с нуля, а там с x1.
+                func[i] = ' nx' + str(i + 1) + ' &'  # Пишем не икс i+1. У нас же с нуля, а там с x1.
             else:  # Иначе, если у нас 1
-                func[i] = ' x' + str(i + 1) + ' ^'  # Просто икс. В конце добавляем знак умножения
+                func[i] = ' x' + str(i + 1) + ' &'  # Просто икс. В конце добавляем знак умножения
     else:  # Если же СКНФ
         for i in range(4):  # 4 терма
             if func[i] == '0':  # Если ноль

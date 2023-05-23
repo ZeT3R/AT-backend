@@ -129,7 +129,66 @@ def form_json2(ret_json, in_json):
             if int(table2[templatesIN["segment"]][i]) != int(table2.iloc[:,-1][i]):
                 print("You suck, little boy, go fuck yourself!")
 
+    chkPirs = check_Table_Pirs(my_var_save, Tknf_pirs)
+    chkSheffer = check_Table_Sheffer(my_var_save, Tdnf_sheffer)
 
+    for i in range(len(chkPirs[templatesIN["segment"]])):
+        if chkPirs[templatesIN["segment"]][i] == 'x':
+            continue
+        else:
+            if int(chkPirs[templatesIN["segment"]][i]) != int(chkPirs.iloc[:,-1][i]):
+                print("You suck, little boy, go fuck yourself!")
+
+    for i in range(len(chkSheffer[templatesIN["segment"]])):
+        if chkSheffer[templatesIN["segment"]][i] == 'x':
+            continue
+        else:
+            if int(chkSheffer[templatesIN["segment"]][i]) != int(chkSheffer.iloc[:,-1][i]):
+                print("You suck, little boy, go fuck yourself!")
+
+    Quine = Kvaina_DNF(Fsdnf)
+    while 1:
+        temp = Kvaina_DNF(Quine)
+        if temp == Quine:
+            break
+        else:
+            Quine = temp.copy()
+
+    for i in range(len(Quine)):
+        Quine[i] = Quine[i].replace('&', ' & ')
+    Quine = format_DNF(Quine)
+    split_check = Split_Tdnf(Quine)
+    Quine_Tdnf_check = check_Table_tdnf(my_var_save, split_check)
+
+    for i in range(len(Quine_Tdnf_check[templatesIN["segment"]])):
+        if Quine_Tdnf_check[templatesIN["segment"]][i] == 'x':
+            continue
+        else:
+            if int(Quine_Tdnf_check[templatesIN["segment"]][i]) != int(Quine_Tdnf_check.iloc[:,-1][i]):
+                print("You suck, little boy, go fuck yourself!")
+
+
+    Quine_KNF = Kvaina_KNF(Fsknf)
+    while 1:
+        temp = Kvaina_KNF(Quine_KNF)
+        if temp == Quine_KNF:
+            break
+        else:
+            Quine_KNF = temp.copy()
+
+    for i in range(len(Quine_KNF)):
+        Quine_KNF[i] = Quine_KNF[i].replace('v', ' v ')
+    Quine_KNF = format_KNF(Quine_KNF)
+    split_check_knf = Split_Tknf(Quine_KNF)
+    Quine_Tknf_check = check_Table_tknf(my_var_save, split_check_knf)
+
+
+    for i in range(len(Quine_Tknf_check[templatesIN["segment"]])):
+        if Quine_Tknf_check[templatesIN["segment"]][i] == 'x':
+            continue
+        else:
+            if int(Quine_Tknf_check[templatesIN["segment"]][i]) != int(Quine_Tknf_check.iloc[:,-1][i]):
+                print("You suck, little boy, go fuck yourself!")
 
     return [templates, templatesIN]
 
