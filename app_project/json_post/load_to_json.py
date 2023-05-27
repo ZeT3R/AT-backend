@@ -492,8 +492,10 @@ def form_json_two_bits(ret_json, in_json):
             S = algo.addition(S, new_X, len(X) * 2 - 1, code='dop', kr=3)
             S = algo.shift(S, 'str' if S[0] == '0' else 'rev', -2)
 
-        templates["S"]["S" + str(i + 1)] = S.copy()
-        templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)]) == algo.convert(templates["S"]["S" + str(i + 1)]) else False
+        if templatesIN["S"]["S" + str(i + 1)]  != "":
+
+            templates["S"]["S" + str(i + 1)] = S.copy()
+            templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)]) == algo.convert(templates["S"]["S" + str(i + 1)]) else False
 
         interval_left -= 2
         interval_right -= 2
