@@ -278,6 +278,80 @@ def kr4():
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
+
+@app.route('/api/kr5', methods=['POST'])
+@cross_origin()
+def kr5():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json_two_bits(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test5")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test5',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test5")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
+    return {"right": right_answers, "checked": check_user_answers}
+
+@app.route('/api/kr6', methods=['POST'])
+@cross_origin()
+def kr6():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json_section_multiply(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test6")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test6',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test6")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
+    return {"right": right_answers, "checked": check_user_answers}
+
+@app.route('/api/kr7', methods=['POST'])
+@cross_origin()
+def kr7():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json_dop_corr_step(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test7")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test7',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test7")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
+    return {"right": right_answers, "checked": check_user_answers}
+
+
+@app.route('/api/kr8', methods=['POST'])
+@cross_origin()
+def kr8():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json_no_tail_rest(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                      Tests.test_name.like("test8")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                    test_name='test8',
+                    test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test8")).update({"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
+    return {"right": right_answers, "checked": check_user_answers}
+
 @app.route('/api/event', methods=['GET', 'POST', 'PUT'])
 @cross_origin()
 def handle_events():
