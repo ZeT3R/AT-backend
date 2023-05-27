@@ -553,8 +553,10 @@ def form_json_section_multiply(ret_json, in_json):
             S = algo.addition(S, minX.copy(), len(X) * 2 - 1, code='rev', kr=3)
         templates["S"]["S" + str(m)] = S.copy()
 
-        templatesIN["S"]["S" + str(m)] = True if algo.convert(templatesIN["S"]["S" + str(m)], len(S)) == algo.convert(
-        templates["S"]["S" + str(m)], len(S)) else False
+        if templatesIN["S"]["S" + str(m + 1)] != "":
+
+            templatesIN["S"]["S" + str(m)] = True if algo.convert(templatesIN["S"]["S" + str(m)], len(S)) == algo.convert(
+            templates["S"]["S" + str(m)], len(S)) else False
 
     if S[0] == '1':
         S = algo.rev(algo.convert(S, len(S)), len(S))
@@ -600,9 +602,9 @@ def form_json_dop_corr_step(ret_json, in_json):
         dopX.insert(1, X[0])
 
         templates["S"]["S" + str(i + 1)] = S.copy()
-
-        templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)], len(S)) == algo.convert(
-        templates["S"]["S" + str(i + 1)], len(S)) else False
+        if templatesIN["S"]["S" + str(i + 1)] != "":
+            templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)], len(S)) == algo.convert(
+            templates["S"]["S" + str(i + 1)], len(S)) else False
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
@@ -671,8 +673,10 @@ def form_json_no_tail_rest(ret_json, in_json):
 
         templates["S"]["S" + str(i + 1)] = S.copy()
 
-        templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)], len(S)) == algo.convert(
-        templates["S"]["S" + str(i + 1)], len(S)) else False
+        if templatesIN["S"]["S" + str(i + 1)] != "":
+
+            templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)], len(S)) == algo.convert(
+            templates["S"]["S" + str(i + 1)], len(S)) else False
 
         templatesIN["Z"] = True if templatesIN["Z"] == templates["Z"] else False
 
