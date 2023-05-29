@@ -1,9 +1,23 @@
 {
   "segment": "",
   "offset": 0,
-  "stud_id": 0,
-  "score": 0,
   "var_seg": [],
   "Fsdnf": [],
-  "Fsknf": []
+  "Fsknf": [],
+  "Quine_DNF": "",
+  "Quine_KNF": "",
+  "Quine_MC_DNF": "",
+  "Quine_MC_KNF": "",
+  "Carno": {"carno_0": "", "carno_1": "", "carno_2": "", "carno_3": "", "carno_4": "", "carno_5": "", "carno_6": "",
+  "carno_7": "", "carno_8": "", "carno_9": "", "carno_10": "", "carno_11": "", "carno_12": "", "carno_13": "",
+    "carno_14": "", "carno_15": ""
+  },
+  "carno_tdnf": [],
+  "carno_tknf": [],
+  "Pirs": "",
+  "Sheffer": "",
+
+
+  "stud_id": 0,
+  "score": 0
 }

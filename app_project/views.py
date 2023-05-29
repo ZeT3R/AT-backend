@@ -242,6 +242,14 @@ def kr1():
     return {"right": right_answers, "checked": check_user_answers}
 
 
+@app.route('/api/kr2', methods=['POST'])
+@cross_origin()
+def kr2():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json2(start_json, data)
+    return {"right": right_answers, "checked": check_user_answers}
+
+
 @app.route('/api/kr3', methods=['POST'])
 @cross_origin()
 def kr3():

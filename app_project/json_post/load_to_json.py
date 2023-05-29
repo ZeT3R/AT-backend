@@ -86,20 +86,58 @@ def form_json2(ret_json, in_json):
     var = trues[templatesIN["segment"]]
     varik = create_var(var, templatesIN["offset"], templatesIN["segment"])
     print(varik)
-
     my_var_save = varik.copy()
+    templates["var_seg"] = varik[templatesIN["segment"]].tolist()
+    print(templates["var_seg"])
+    templatesIN["var_seg"] = True if templatesIN["var_seg"] == templates["var_seg"] else False
     varik, Fsdnf, Fsknf, func_list_DNF, func_list_KNF = modify_var(varik,
                                                                     templatesIN["offset"],
                                                                     templatesIN["segment"])  # Получаем СДНФ и СКНФ и меняем таблицу
     print("Fсднф = ", Fsdnf, '\n\n', "Fскнф = ", Fsknf)  # Проверяем
     print(varik)
 
+    templates["Fsdnf"] = Fsdnf
+    templates["Fsknf"] = Fsknf
+
+    in_sdnf = templatesIN["Fsdnf"].copy()
+    in_sknf = templatesIN["Fsknf"].copy()
+
+    templatesIN["Fsdnf"] = True if templatesIN["Fsdnf"] == templates["Fsdnf"] else False
+    templatesIN["Fsknf"] = True if templatesIN["Fsknf"] == templates["Fsknf"] else False
+
     Carno = create_carno(varik[templatesIN["segment"]])
     print(Carno)
+    templates["Carno"]["carno_0"] = Carno[0][0]
+    templates["Carno"]["carno_1"] = Carno[0][1]
+    templates["Carno"]["carno_2"] = Carno[0][2]
+    templates["Carno"]["carno_3"] = Carno[0][3]
+    templates["Carno"]["carno_4"] = Carno[1][0]
+    templates["Carno"]["carno_5"] = Carno[1][1]
+    templates["Carno"]["carno_6"] = Carno[1][2]
+    templates["Carno"]["carno_7"] = Carno[1][3]
+    templates["Carno"]["carno_8"] = Carno[2][0]
+    templates["Carno"]["carno_9"] = Carno[2][1]
+    templates["Carno"]["carno_10"] = Carno[2][2]
+    templates["Carno"]["carno_11"] = Carno[2][3]
+    templates["Carno"]["carno_12"] = Carno[3][0]
+    templates["Carno"]["carno_13"] = Carno[3][1]
+    templates["Carno"]["carno_14"] = Carno[3][2]
+    templates["Carno"]["carno_15"] = Carno[3][3]
+
+    for i in range(16):
+        templatesIN["Carno"]["carno" + "_" + str(i)] = True if templatesIN["Carno"]["carno" + "_" + str(i)] == templates["Carno"]["carno" + "_" + str(i)] else False
+
+
     carno_minim = carno_minimization[templatesIN["segment"] + "_" + str(templatesIN["offset"])]
     print(carno_minim)
     Tknf = carno_minim["TKNF"]
     Tdnf = carno_minim["TDNF"]
+
+    templates["carno_tdnf"] = Tdnf
+    templates["carno_tknf"] = Tknf
+
+    templatesIN["carno_tdnf"] = True if templatesIN["carno_tdnf"] == templates["carno_tdnf"] else False
+    templatesIN["carno_tknf"] = True if templatesIN["carno_tknf"] == templates["carno_tknf"] else False
 
     Tknf_pirs = Pirs(Tknf)  # запомнили результат
     Tdnf_sheffer = Sheffer(Tdnf)  # запомнили результат
@@ -107,47 +145,19 @@ def form_json2(ret_json, in_json):
     print(Tknf_pirs)
     print(Tdnf_sheffer)
 
+    templates["Pirs"] = Tknf_pirs
+    templates["Sheffer"] = Tdnf_sheffer
+
+    templatesIN["Pirs"] = True if templatesIN["Pirs"] == templates["Pirs"] else False
+    templatesIN["Sheffer"] = True if templatesIN["Sheffer"] == templates["Sheffer"] else False
+
     splitTdnf = Split_Tdnf(Tdnf)  # Присваиваем
     splitTknf = Split_Tknf(Tknf)  # Присваиваем
 
     print(splitTdnf)
     print(splitTknf)
 
-    table1 = check_Table_tdnf(my_var_save, splitTdnf)  # Запоминаем первую таблицу СДНФ
-    table2 = check_Table_tknf(my_var_save, splitTknf)  # Запоминаем вторую таблицу СКНФ
-
-    for i in range(len(table1[templatesIN["segment"]])):
-        if table1[templatesIN["segment"]][i] == 'x':
-            continue
-        else:
-            if int(table1[templatesIN["segment"]][i]) != int(table1.iloc[:,-1][i]):
-                print("You suck, little boy, go fuck yourself!")
-
-    for i in range(len(table2[templatesIN["segment"]])):
-        if table2[templatesIN["segment"]][i] == 'x':
-            continue
-        else:
-            if int(table2[templatesIN["segment"]][i]) != int(table2.iloc[:,-1][i]):
-                print("You suck, little boy, go fuck yourself!")
-
-    chkPirs = check_Table_Pirs(my_var_save, Tknf_pirs)
-    chkSheffer = check_Table_Sheffer(my_var_save, Tdnf_sheffer)
-
-    for i in range(len(chkPirs[templatesIN["segment"]])):
-        if chkPirs[templatesIN["segment"]][i] == 'x':
-            continue
-        else:
-            if int(chkPirs[templatesIN["segment"]][i]) != int(chkPirs.iloc[:,-1][i]):
-                print("You suck, little boy, go fuck yourself!")
-
-    for i in range(len(chkSheffer[templatesIN["segment"]])):
-        if chkSheffer[templatesIN["segment"]][i] == 'x':
-            continue
-        else:
-            if int(chkSheffer[templatesIN["segment"]][i]) != int(chkSheffer.iloc[:,-1][i]):
-                print("You suck, little boy, go fuck yourself!")
-
-    Quine = Kvaina_DNF(Fsdnf)
+    Quine = Kvaina_DNF(in_sdnf)
     while 1:
         temp = Kvaina_DNF(Quine)
         if temp == Quine:
@@ -161,15 +171,12 @@ def form_json2(ret_json, in_json):
     split_check = Split_Tdnf(Quine)
     Quine_Tdnf_check = check_Table_tdnf(my_var_save, split_check)
 
-    for i in range(len(Quine_Tdnf_check[templatesIN["segment"]])):
-        if Quine_Tdnf_check[templatesIN["segment"]][i] == 'x':
-            continue
-        else:
-            if int(Quine_Tdnf_check[templatesIN["segment"]][i]) != int(Quine_Tdnf_check.iloc[:,-1][i]):
-                print("You suck, little boy, go fuck yourself!")
+    in_Quine_DNF = Quine_Tdnf_check[Quine_Tdnf_check.columns[-1]].tolist()
+    templatesIN["Quine_DNF"] = True if in_Quine_DNF == templates["var_seg"] else False
 
 
-    Quine_KNF = Kvaina_KNF(Fsknf)
+
+    Quine_KNF = Kvaina_KNF(in_sknf)
     while 1:
         temp = Kvaina_KNF(Quine_KNF)
         if temp == Quine_KNF:
@@ -183,13 +190,8 @@ def form_json2(ret_json, in_json):
     split_check_knf = Split_Tknf(Quine_KNF)
     Quine_Tknf_check = check_Table_tknf(my_var_save, split_check_knf)
 
-
-    for i in range(len(Quine_Tknf_check[templatesIN["segment"]])):
-        if Quine_Tknf_check[templatesIN["segment"]][i] == 'x':
-            continue
-        else:
-            if int(Quine_Tknf_check[templatesIN["segment"]][i]) != int(Quine_Tknf_check.iloc[:,-1][i]):
-                print("You suck, little boy, go fuck yourself!")
+    in_Quine_KNF = Quine_Tdnf_check[Quine_Tknf_check.columns[-1]].tolist()
+    templatesIN["Quine_KNF"] = True if in_Quine_KNF == templates["var_seg"] else False
 
     return [templates, templatesIN]
 
