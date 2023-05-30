@@ -259,6 +259,26 @@ def kr1():
     return {"right": right_answers, "checked": check_user_answers}
 
 
+@app.route('/api/kr2', methods=['POST'])
+@cross_origin()
+def kr2():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json2(start_json, data)
+    if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test2")).first() is None) == True:
+        new_test = Tests(user_id=check_user_answers['stud_id'],
+                         test_name='test2',
+                         test_score=check_user_answers['score'])
+        db.session.add(new_test)
+        db.session.commit()
+    else:
+        db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
+                                       Tests.test_name.like("test2")).update(
+            {"test_score": check_user_answers['score']}, synchronize_session='fetch')
+        db.session.commit()
+    return {"right": right_answers, "checked": check_user_answers}
+
+
 @app.route('/api/kr3', methods=['POST'])
 @cross_origin()
 def kr3():

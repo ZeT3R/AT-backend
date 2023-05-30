@@ -1029,3 +1029,27 @@ def modify_var(var_table, offset, seg):  # Функция модификации
             var_table.at[i, 'SKNF'] = func  # Добавляем значение в таблицу
             Fsknf.append(func)  # И прибавляем в финальный список функции СКНФ
     return var_table, Fsdnf, Fsknf, func_list_DNF, func_list_KNF
+
+
+def format_spaces_DNF(Tdnf):
+    Tdnf = list(Tdnf)
+    new_Tdnf = []
+    for i in range(len(Tdnf)):
+        if Tdnf[i] == '&':
+            new_Tdnf.append(" & ")
+        else:
+            new_Tdnf.append(Tdnf[i])
+    new_Tdnf = ''.join(new_Tdnf)
+    return new_Tdnf
+
+
+def format_spaces_KNF(Tknf):
+    Tknf = list(Tknf)
+    new_Tknf = []
+    for i in range(len(Tknf)):
+        if Tknf[i] == 'v':
+            new_Tknf.append(" v ")
+        else:
+            new_Tknf.append(Tknf[i])
+    new_Tdnf = ''.join(new_Tknf)
+    return new_Tdnf

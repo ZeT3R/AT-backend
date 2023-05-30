@@ -5,6 +5,7 @@ from app_project.test_packages.algorithms import *
 from app_project.test_packages.second_test_helper import *
 import app_project.test_packages.multiply_algo as algo
 import pandas
+from fuzzywuzzy import fuzz as f
 
 def check_overflow(str1, str2):
     if ((str1 == 'OVERFLOW' or str1 == 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ') and (
@@ -90,6 +91,7 @@ def form_json2(ret_json, in_json):
     templates["var_seg"] = varik[templatesIN["segment"]].tolist()
     print(templates["var_seg"])
     templatesIN["var_seg"] = True if templatesIN["var_seg"] == templates["var_seg"] else False
+    if templatesIN["var_seg"]: count += 10
     varik, Fsdnf, Fsknf, func_list_DNF, func_list_KNF = modify_var(varik,
                                                                     templatesIN["offset"],
                                                                     templatesIN["segment"])  # Получаем СДНФ и СКНФ и меняем таблицу
@@ -102,8 +104,12 @@ def form_json2(ret_json, in_json):
     in_sdnf = templatesIN["Fsdnf"].copy()
     in_sknf = templatesIN["Fsknf"].copy()
 
-    templatesIN["Fsdnf"] = True if templatesIN["Fsdnf"] == templates["Fsdnf"] else False
-    templatesIN["Fsknf"] = True if templatesIN["Fsknf"] == templates["Fsknf"] else False
+    templatesIN["Fsdnf"] = True if f.token_sort_ratio(templatesIN["Fsdnf"], templates["Fsdnf"]) == 100 else False
+    if templatesIN["Fsdnf"]: count += 10
+    templatesIN["Fsknf"] = True if f.token_sort_ratio(templatesIN["Fsknf"], templates["Fsknf"]) == 100 else False
+    if templatesIN["Fsknf"]: count += 10
+    # templatesIN["Fsdnf"] = True if templatesIN["Fsdnf"] == templates["Fsdnf"] else False
+    # templatesIN["Fsknf"] = True if templatesIN["Fsknf"] == templates["Fsknf"] else False
 
     Carno = create_carno(varik[templatesIN["segment"]])
     print(Carno)
@@ -124,20 +130,32 @@ def form_json2(ret_json, in_json):
     templates["Carno"]["carno_14"] = Carno[3][2]
     templates["Carno"]["carno_15"] = Carno[3][3]
 
+    print(Carno)
     for i in range(16):
-        templatesIN["Carno"]["carno" + "_" + str(i)] = True if templatesIN["Carno"]["carno" + "_" + str(i)] == templates["Carno"]["carno" + "_" + str(i)] else False
+        if templatesIN["Carno"]["carno" + "_" + str(i)] == templates["Carno"]["carno" + "_" + str(i)]:
+            templatesIN["Carno"]["carno" + "_" + str(i)] = True
+            count += 1
+        else:
+            templatesIN["Carno"]["carno" + "_" + str(i)] = False
 
 
     carno_minim = carno_minimization[templatesIN["segment"] + "_" + str(templatesIN["offset"])]
-    print(carno_minim)
     Tknf = carno_minim["TKNF"]
     Tdnf = carno_minim["TDNF"]
+
+    print(Tknf, "TKNF")
+    print(Tdnf, "TDNF")
+
 
     templates["carno_tdnf"] = Tdnf
     templates["carno_tknf"] = Tknf
 
-    templatesIN["carno_tdnf"] = True if templatesIN["carno_tdnf"] == templates["carno_tdnf"] else False
-    templatesIN["carno_tknf"] = True if templatesIN["carno_tknf"] == templates["carno_tknf"] else False
+    templatesIN["carno_tdnf"] = True if f.token_sort_ratio(templatesIN["carno_tdnf"], templates["carno_tdnf"]) == 100 else False
+    if templatesIN["carno_tdnf"]: count += 15
+    templatesIN["carno_tknf"] = True if f.token_sort_ratio(templatesIN["carno_tknf"], templates["carno_tknf"]) == 100 else False
+    if templatesIN["carno_tknf"]: count += 15
+    # templatesIN["carno_tdnf"] = True if templatesIN["carno_tdnf"] == templates["carno_tdnf"] else False
+    # templatesIN["carno_tknf"] = True if templatesIN["carno_tknf"] == templates["carno_tknf"] else False
 
     Tknf_pirs = Pirs(Tknf)  # запомнили результат
     Tdnf_sheffer = Sheffer(Tdnf)  # запомнили результат
@@ -148,50 +166,66 @@ def form_json2(ret_json, in_json):
     templates["Pirs"] = Tknf_pirs
     templates["Sheffer"] = Tdnf_sheffer
 
-    templatesIN["Pirs"] = True if templatesIN["Pirs"] == templates["Pirs"] else False
-    templatesIN["Sheffer"] = True if templatesIN["Sheffer"] == templates["Sheffer"] else False
+    templatesIN["Pirs"] = True if f.token_sort_ratio(templatesIN["Pirs"], templates["Pirs"]) == 100 else False
+    if templatesIN["Pirs"]: count += 12
+    templatesIN["Sheffer"] = True if f.token_sort_ratio(templatesIN["Sheffer"], templates["Sheffer"]) == 100 else False
+    if templatesIN["Sheffer"]: count += 12
+    # templatesIN["Pirs"] = True if templatesIN["Pirs"] == templates["Pirs"] else False
+    # templatesIN["Sheffer"] = True if templatesIN["Sheffer"] == templates["Sheffer"] else False
 
-    splitTdnf = Split_Tdnf(Tdnf)  # Присваиваем
-    splitTknf = Split_Tknf(Tknf)  # Присваиваем
 
-    print(splitTdnf)
-    print(splitTknf)
-
-    Quine = Kvaina_DNF(in_sdnf)
-    while 1:
-        temp = Kvaina_DNF(Quine)
-        if temp == Quine:
-            break
-        else:
-            Quine = temp.copy()
-
-    for i in range(len(Quine)):
-        Quine[i] = Quine[i].replace('&', ' & ')
-    Quine = format_DNF(Quine)
-    split_check = Split_Tdnf(Quine)
+    split_check = Split_Tdnf(templatesIN["Quine_DNF"])
     Quine_Tdnf_check = check_Table_tdnf(my_var_save, split_check)
 
     in_Quine_DNF = Quine_Tdnf_check[Quine_Tdnf_check.columns[-1]].tolist()
-    templatesIN["Quine_DNF"] = True if in_Quine_DNF == templates["var_seg"] else False
 
+    templatesIN["Quine_DNF"] = True
+    for i in range(len(in_Quine_DNF)):
+        if str(in_Quine_DNF[i]) != str(templates["var_seg"][i]) and str(templates["var_seg"][i]) == 'x':
+            continue
+        if str(in_Quine_DNF[i]) != str(templates["var_seg"][i]):
+            templatesIN["Quine_DNF"] = False
+    if templatesIN["Quine_DNF"]: count += 20
 
-
-    Quine_KNF = Kvaina_KNF(in_sknf)
-    while 1:
-        temp = Kvaina_KNF(Quine_KNF)
-        if temp == Quine_KNF:
-            break
-        else:
-            Quine_KNF = temp.copy()
-
-    for i in range(len(Quine_KNF)):
-        Quine_KNF[i] = Quine_KNF[i].replace('v', ' v ')
-    Quine_KNF = format_KNF(Quine_KNF)
-    split_check_knf = Split_Tknf(Quine_KNF)
+    split_check_knf = Split_Tknf(templatesIN["Quine_KNF"])
     Quine_Tknf_check = check_Table_tknf(my_var_save, split_check_knf)
 
-    in_Quine_KNF = Quine_Tdnf_check[Quine_Tknf_check.columns[-1]].tolist()
-    templatesIN["Quine_KNF"] = True if in_Quine_KNF == templates["var_seg"] else False
+    in_Quine_KNF = Quine_Tknf_check[Quine_Tknf_check.columns[-1]].tolist()
+
+    templatesIN["Quine_KNF"] = True
+    for i in range(len(in_Quine_KNF)):
+        if str(in_Quine_KNF[i]) != str(templates["var_seg"][i]) and str(templates["var_seg"][i]) == 'x':
+            continue
+        if str(in_Quine_KNF[i]) != str(templates["var_seg"][i]):
+            templatesIN["Quine_KNF"] = False
+    if templatesIN["Quine_KNF"]: count += 20
+
+
+    split_check = Split_Tdnf(templatesIN["Quine_MC_DNF"])
+    Quine_Tdnf_check = check_Table_tdnf(my_var_save, split_check)
+
+    in_Quine_DNF = Quine_Tdnf_check[Quine_Tdnf_check.columns[-1]].tolist()
+    templatesIN["Quine_MC_DNF"] = True
+    for i in range(len(in_Quine_DNF)):
+        if str(in_Quine_DNF[i]) != str(templates["var_seg"][i]) and str(templates["var_seg"][i]) == 'x':
+            continue
+        if str(in_Quine_DNF[i]) != str(templates["var_seg"][i]):
+            templatesIN["Quine_MC_DNF"] = False
+    if templatesIN["Quine_MC_DNF"]: count += 30
+
+    split_check = Split_Tknf(templatesIN["Quine_MC_KNF"])
+    Quine_Tknf_check = check_Table_tknf(my_var_save, split_check)
+
+    in_Quine_KNF = Quine_Tknf_check[Quine_Tknf_check.columns[-1]].tolist()
+    templatesIN["Quine_MC_KNF"] = True
+    for i in range(len(in_Quine_KNF)):
+        if str(in_Quine_KNF[i]) != str(templates["var_seg"][i]) and str(templates["var_seg"][i]) == 'x':
+            continue
+        if str(in_Quine_KNF[i]) != str(templates["var_seg"][i]):
+            templatesIN["Quine_MC_KNF"] = False
+    if templatesIN["Quine_MC_KNF"]: count += 30
+
+    templatesIN["score"] = count
 
     return [templates, templatesIN]
 
