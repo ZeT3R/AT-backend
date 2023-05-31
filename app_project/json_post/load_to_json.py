@@ -163,6 +163,13 @@ def form_json2(ret_json, in_json):
     if templatesIN["Sheffer"] != "":
         templatesIN["Sheffer"] = True if f.token_sort_ratio(templatesIN["Sheffer"], templates["Sheffer"]) == 100 else False
         if templatesIN["Sheffer"]: count += 12
+    if templatesIN["Base"] != "":
+        if f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tdnf"]) == 100 or \
+           f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tknf"]) == 100:
+            templatesIN["Base"] = True
+        else:
+            templatesIN["Base"] = False
+
     # templatesIN["Pirs"] = True if templatesIN["Pirs"] == templates["Pirs"] else False
     # templatesIN["Sheffer"] = True if templatesIN["Sheffer"] == templates["Sheffer"] else False
 
