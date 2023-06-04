@@ -101,13 +101,11 @@ def form_json2(ret_json, in_json):
     in_sdnf = templatesIN["Fsdnf"].split(" v ")
     in_sknf = templatesIN["Fsknf"].split(" & ")
 
-    print(in_sdnf)
-    print(in_sknf)
     if templatesIN["Fsdnf"] != []:
-        templatesIN["Fsdnf"] = True if f.token_sort_ratio(templatesIN["Fsdnf"], templates["Fsdnf"]) == 100 else False
+        templatesIN["Fsdnf"] = True if f.token_sort_ratio(templates["Fsdnf"], in_sdnf) == 100 else False
         if templatesIN["Fsdnf"]: count += 10
     if templatesIN["Fsknf"] != []:
-        templatesIN["Fsknf"] = True if f.token_sort_ratio(templatesIN["Fsknf"], templates["Fsknf"]) == 100 else False
+        templatesIN["Fsknf"] = True if f.token_sort_ratio(templates["Fsknf"], in_sknf) == 100 else False
         if templatesIN["Fsknf"]: count += 10
     # templatesIN["Fsdnf"] = True if templatesIN["Fsdnf"] == templates["Fsdnf"] else False
     # templatesIN["Fsknf"] = True if templatesIN["Fsknf"] == templates["Fsknf"] else False
