@@ -52,7 +52,7 @@ def form_json_Boota(ret_json, in_json):
         S = algo.dop(algo.convert(S, len(S)), len(S))
 
     templates["first"]["result"] = S.copy()
-    if templatesIN["first"]["result"] != "":
+    if templatesIN["first"]["result"] != []:
         templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"]) == algo.convert(templates["first"]["result"]) else False
 
     with open(ret_json, 'w') as output:
@@ -128,7 +128,7 @@ def form_json_two_bits(ret_json, in_json):
         S = algo.rev(algo.convert(S, len(S)), len(S))
 
     templates["second"]["result"] = S.copy()
-    if templatesIN["second"]["result"] != "":
+    if templatesIN["second"]["result"] != []:
         templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"]) == algo.convert(templates["second"]["result"]) else False
 
 
@@ -187,7 +187,7 @@ def form_json_section_multiply(ret_json, in_json):
         S = algo.rev(algo.convert(S, len(S)), len(S))
 
     templates["first"]["result"] = S.copy()
-    if templatesIN["first"]["result"] != "":
+    if templatesIN["first"]["result"] != []:
         templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(S)) == algo.convert(templates["first"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
@@ -248,7 +248,7 @@ def corr_steps_rev(ret_json, in_json):
         S = algo.rev(algo.convert(S, len(S)), len(S))
 
     templates["second"]["result"] = S.copy()
-    if templatesIN["second"]["result"] != "":
+    if templatesIN["second"]["result"] != []:
         templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"], len(S)) == algo.convert(
             templates["second"]["result"], len(S)) else False
 
@@ -309,7 +309,7 @@ def form_json_dop_corr_step(ret_json, in_json):
         S = algo.dop(algo.convert(S, len(S)), len(S))
 
     templates["first"]["result"] = S.copy()
-    if templatesIN["first"]["result"] != "":
+    if templatesIN["first"]["result"] != []:
         templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(S)) == algo.convert(templates["first"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
@@ -370,7 +370,7 @@ def adjacent_digits(ret_json, in_json):
         S = algo.dop(algo.convert(S, len(S)), len(S))
 
     templates["second"]["result"] = S.copy()
-    if templatesIN["second"]["result"] != "":
+    if templatesIN["second"]["result"] != []:
         templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"], len(S)) == algo.convert(templates["second"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
