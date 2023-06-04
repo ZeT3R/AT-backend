@@ -13,6 +13,14 @@ def calculate_bits(x_, y_):
         return 5
     return 3
 
+def calculate_bits_Boota(x_, y_):
+    if abs(x_) + abs(y_) >= 16:
+        return 6
+    elif abs(x_) + abs(y_) >= 8:
+        return 5
+    elif abs(x_) + abs(y_) >= 4:
+        return 4
+    return 3
 
 def change_bits(bits):
     if bits == ['0', '0']:

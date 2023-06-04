@@ -323,7 +323,7 @@ def kr4():
 @cross_origin()
 def kr5():
     data = request.get_json()
-    right_answers, check_user_answers = form_json.form_json_two_bits(start_json, data)
+    right_answers, check_user_answers = form_json.form_json5(start_json, data)
     if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test5")).first() is None) == True:
         new_test = Tests(user_id=check_user_answers['stud_id'],
@@ -343,7 +343,7 @@ def kr5():
 @cross_origin()
 def kr6():
     data = request.get_json()
-    right_answers, check_user_answers = form_json.form_json_section_multiply(start_json, data)
+    right_answers, check_user_answers = form_json.form_json6(start_json, data)
     if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test6")).first() is None) == True:
         new_test = Tests(user_id=check_user_answers['stud_id'],
@@ -363,7 +363,7 @@ def kr6():
 @cross_origin()
 def kr7():
     data = request.get_json()
-    right_answers, check_user_answers = form_json.form_json_dop_corr_step(start_json, data)
+    right_answers, check_user_answers = form_json.form_json7(start_json, data)
     if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test7")).first() is None) == True:
         new_test = Tests(user_id=check_user_answers['stud_id'],
@@ -383,7 +383,7 @@ def kr7():
 @cross_origin()
 def kr8():
     data = request.get_json()
-    right_answers, check_user_answers = form_json.form_json_no_tail_rest(start_json, data)
+    right_answers, check_user_answers = form_json.form_json8(start_json, data)
     if (db.session.query(Tests).filter(Tests.user_id.like(check_user_answers["stud_id"]),
                                        Tests.test_name.like("test8")).first() is None) == True:
         new_test = Tests(user_id=check_user_answers['stud_id'],

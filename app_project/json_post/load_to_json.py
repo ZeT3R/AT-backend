@@ -4,6 +4,7 @@ from app_project.test_packages.transfer import *
 from app_project.test_packages.algorithms import *
 from app_project.test_packages.second_test_helper import *
 import app_project.test_packages.multiply_algo as algo
+import app_project.test_packages.mul_div_solver as solver
 import pandas
 from fuzzywuzzy import fuzz as f
 
@@ -142,6 +143,14 @@ def form_json2(ret_json, in_json):
 
     templates["carno_tdnf"] = Tdnf
     templates["carno_tknf"] = Tknf
+
+    if templatesIN["Base"] != "":
+        if f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tdnf"]) == 100 or \
+           f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tknf"]) == 100:
+            templatesIN["Base"] = True
+        else:
+            templatesIN["Base"] = False
+
     if templatesIN["carno_tdnf"] != []:
         templatesIN["carno_tdnf"] = True if f.token_sort_ratio(templatesIN["carno_tdnf"], templates["carno_tdnf"]) == 100 else False
         if templatesIN["carno_tdnf"]: count += 15
@@ -163,12 +172,6 @@ def form_json2(ret_json, in_json):
     if templatesIN["Sheffer"] != "":
         templatesIN["Sheffer"] = True if f.token_sort_ratio(templatesIN["Sheffer"], templates["Sheffer"]) == 100 else False
         if templatesIN["Sheffer"]: count += 12
-    if templatesIN["Base"] != "":
-        if f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tdnf"]) == 100 or \
-           f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tknf"]) == 100:
-            templatesIN["Base"] = True
-        else:
-            templatesIN["Base"] = False
 
     # templatesIN["Pirs"] = True if templatesIN["Pirs"] == templates["Pirs"] else False
     # templatesIN["Sheffer"] = True if templatesIN["Sheffer"] == templates["Sheffer"] else False
@@ -479,246 +482,35 @@ def form_json4(ret_json, in_json):
     return [templates, templatesIN]
 
 
-
-def form_json_two_bits(ret_json, in_json):
-    ret_json = clear_json(ret_json, "app_project/json_post/format_json_two_bits.json")
-    algo.bit_depth = 8
-
-    count = 0
-
-    with open(ret_json) as f1:
-        templates = json.load(f1)
-    templatesIN = in_json
-
-    x = templatesIN["X"]
-    y = templatesIN["Y"]
-
-    number_of_bits = algo.calculate_bits(x, y)
-
-    X = algo.convert(x, number_of_bits)
-    Y = algo.convert(y, number_of_bits)
-
-    minX = algo.addition(algo.Fullreverse(X.copy()), ['1'], bits=len(X), code='dop', kr=2)
-    S = ['0' for m in range(len(X) * 2 - 1)]
-    interval_left = len(Y) - 2
-    interval_right = len(Y)
-    corr = 0
-    algo.bit_depth = len(S)
-    for i in range((len(Y) - 1) // 2):
-        two_bits = Y[interval_left:interval_right]
-        if corr == 1:
-            two_bits = algo.change_bits(two_bits)
-            if two_bits == ["0", "0"]:
-                corr = 1
-            else:
-                corr = 0
-        if two_bits == ['0', '0']:
-            S = algo.shift(S, 'str' if S[0] == '0' else 'rev', -2)
-        elif two_bits == ["0", '1']:
-            S = algo.addition(S, X.copy(), len(X) * 2 - 1, code='str' if S[0] == '0' else 'rev', kr=3)
-            S = algo.shift(S, 'str' if S[0] == '0' else 'rev', -2)
-        elif two_bits == ['1', '1']:
-            S = algo.addition(S, minX.copy(), len(X) * 2 - 1, code='dop', kr=3)
-            S = algo.shift(S, 'str' if S[0] == '0' else 'rev', -2)
-            corr = 1
-        else:
-            new_X = algo.shift(X.copy(), 'str' if X[0] == '0' else 'rev', 1)
-            S = algo.addition(S, new_X, len(X) * 2 - 1, code='dop', kr=3)
-            S = algo.shift(S, 'str' if S[0] == '0' else 'rev', -2)
-
-        if templatesIN["S"]["S" + str(i + 1)]  != "":
-
-            templates["S"]["S" + str(i + 1)] = S.copy()
-            templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)]) == algo.convert(templates["S"]["S" + str(i + 1)]) else False
-
-        interval_left -= 2
-        interval_right -= 2
-
-    if Y[0] == '0' and corr == 1:
-        S = algo.addition(S, X.copy(), len(X) * 2 - 1, code='str' if S[0] == '0' else 'rev', kr=3)
-    elif Y[0] == '1' and corr == 1:
-        S = algo.addition(S, minX.copy(), len(X) * 2 - 1, code='dop', kr=3)
-    elif Y[0] == "1" and corr == 0:
-        S = algo.addition(S, X.copy(), len(X) * 2 - 1, code='str' if S[0] == '0' else 'rev', kr=3)
-
-    templates["S"]["correct"] = S.copy()
-    templatesIN["S"]["correct"] = True if algo.convert(templatesIN["S"]["correct"]) == algo.convert(templates["S"]["correct"]) else False
-
-    if S[0] == '1':
-        S = algo.rev(algo.convert(S, len(S)), len(S))
-
-    templates["result"] = S.copy()
-    templatesIN["result"] = True if algo.convert(templatesIN["result"]) == algo.convert(templates["result"]) else False
-
-
-
-    with open(ret_json, 'w') as output:
-        json.dump(templates, output)
+def form_json5(ret_json, in_json):
+    ret_json = clear_json(ret_json, "app_project/json_post/format_mul_json.json")
+    templates, templatesIN = solver.form_json_Boota(ret_json, in_json)
+    templates, templatesIN = solver.form_json_two_bits(ret_json, in_json)
 
     return [templates, templatesIN]
 
 
-def form_json_section_multiply(ret_json, in_json):
-    ret_json = clear_json(ret_json, "app_project/json_post/format_json_two_bits.json")
-    algo.bit_depth = 8
-
-    count = 0
-
-    with open(ret_json) as f1:
-        templates = json.load(f1)
-    templatesIN = in_json
-
-    x = templatesIN["X"]
-    y = templatesIN["Y"]
-
-    X = algo.convert(x, algo.bit_depth / 2 + 1)
-    Y = algo.convert(y, algo.bit_depth / 2 + 1)
-    minX = algo.Fullreverse(X.copy())
-
-    S = ['0' for m in range(len(X) * 2 - 1)]
-
-    while len(minX) != len(S):
-        minX.append(minX[0])
-
-    for m in range(1, len(Y)):
-        anal_bit = Y[m]
-        minX = algo.shift(minX, "rev", -1)
-        if anal_bit == '1':
-            S = algo.addition(S, minX.copy(), len(X) * 2 - 1, code='rev', kr=3)
-        templates["S"]["S" + str(m)] = S.copy()
-
-        if templatesIN["S"]["S" + str(m + 1)] != "":
-
-            templatesIN["S"]["S" + str(m)] = True if algo.convert(templatesIN["S"]["S" + str(m)], len(S)) == algo.convert(
-            templates["S"]["S" + str(m)], len(S)) else False
-
-    if S[0] == '1':
-        S = algo.rev(algo.convert(S, len(S)), len(S))
-
-    templates["result"] = S.copy()
-    templatesIN["result"] = True if algo.convert(templatesIN["result"], len(S)) == algo.convert(templates["result"], len(S)) else False
-
-    with open(ret_json, 'w') as output:
-        json.dump(templates, output)
+def form_json6(ret_json, in_json):
+    ret_json = clear_json(ret_json, "app_project/json_post/format_mul_json.json")
+    templates, templatesIN = solver.form_json_section_multiply(ret_json, in_json)
+    templates, templatesIN = solver.corr_steps_rev(ret_json, in_json)
 
     return [templates, templatesIN]
 
 
-def form_json_dop_corr_step(ret_json, in_json):
-    ret_json = clear_json(ret_json, "app_project/json_post/format_json_two_bits.json")
-    algo.bit_depth = 8
-
-    count = 0
-
-    with open(ret_json) as f1:
-        templates = json.load(f1)
-    templatesIN = in_json
-
-    x = templatesIN["X"]
-    y = templatesIN["Y"]
-
-    X = algo.convert(x, algo.bit_depth / 2 + 1)
-    Y = algo.convert(y, algo.bit_depth / 2 + 1)
-
-    dopX = algo.dop(x, algo.bit_depth / 2 + 1)
-    dopY = algo.dop(y, algo.bit_depth / 2 + 1)
-
-    minX = algo.addition(algo.Fullreverse(X.copy()), ['1'], bits=len(X), code='dop', kr=2)
-
-    S = ['0' for m in range(len(X) * 2 - 1)]
-
-    for i in range(len(Y)):
-        anal_bit = dopY[i]
-        if anal_bit == '1' and i == 0:
-            S = algo.addition(S, minX.copy(), len(X) * 2 - 1, code='dop', kr=3)
-        elif anal_bit == '1':
-            S = algo.addition(S, dopX.copy(), len(X) * 2 - 1, code='dop', kr=3)
-        dopX.insert(1, X[0])
-
-        templates["S"]["S" + str(i + 1)] = S.copy()
-        if templatesIN["S"]["S" + str(i + 1)] != "":
-            templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)], len(S)) == algo.convert(
-            templates["S"]["S" + str(i + 1)], len(S)) else False
-
-    if S[0] == '1':
-        S = algo.dop(algo.convert(S, len(S)), len(S))
-
-    templates["result"] = S.copy()
-    templatesIN["result"] = True if algo.convert(templatesIN["result"], len(S)) == algo.convert(templates["result"], len(S)) else False
-
-    with open(ret_json, 'w') as output:
-        json.dump(templates, output)
+def form_json7(ret_json, in_json):
+    ret_json = clear_json(ret_json, "app_project/json_post/format_mul_json.json")
+    templates, templatesIN = solver.form_json_dop_corr_step(ret_json, in_json)
+    templates, templatesIN = solver.adjacent_digits(ret_json, in_json)
 
     return [templates, templatesIN]
 
 
-def form_json_no_tail_rest(ret_json, in_json):
-    ret_json = clear_json(ret_json, "app_project/json_post/format_json_div.json")
-    algo.bit_depth = 8
-
-    count = 0
-
-    with open(ret_json) as f1:
-        templates = json.load(f1)
-    templatesIN = in_json
-
-    x = templatesIN["X"]
-    y = templatesIN["Y"]
-
-    X = algo.convert(x, algo.bit_depth / 2 + 1)
-    Y = algo.convert(y, algo.bit_depth / 2 + 1)
-
-    dopY = algo.dop(y, algo.bit_depth / 2 + 1)
-
-    Z = []
-    S = []
-
-    minYdop = algo.Fullreverse(dopY.copy())
-    minYdop = algo.addition(minYdop, ['1'], code='dop', bits=len(minYdop))
-
-    for i in range(len(Y) - 1):
-        if i == 0:
-            S = algo.addition(X.copy(), minYdop.copy(), len(X) * 2 - 1, code='dop', kr=3)
-            if S[0] == '0':
-                exit("Overflow")
-            else:
-                Z.append("0")
-            S = algo.shift(S, 'dop', 1, ignore=True)
-            S[-1] = X[0]
-            templates["Z"].append(Z[0])
-        if S[0] == '1':
-            S = algo.addition(S, Y.copy(), len(X) * 2 - 1, code='dop', kr=3)
-            S = algo.shift(S, 'dop', 1, ignore=True)
-            S[-1] = X[0]
-            if S[0] == '1':
-                Z.append('0')
-            else:
-                Z.append("1")
-        else:
-            S = algo.addition(S, minYdop.copy(), len(X) * 2 - 1, code="dop", kr=3)
-            S = algo.shift(S, 'dop', 1, ignore=True)
-            S[-1] = X[0]
-            if S[0] == '0':
-                Z.append('1')
-            else:
-                Z.append('0')
-
-        templates["Z"].append(Z[-1])
-
-        templates["S"]["S" + str(i + 1)] = S.copy()
-
-        if templatesIN["S"]["S" + str(i + 1)] != "":
-
-            templatesIN["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["S"]["S" + str(i + 1)], len(S)) == algo.convert(
-            templates["S"]["S" + str(i + 1)], len(S)) else False
-
-        templatesIN["Z"] = True if templatesIN["Z"] == templates["Z"] else False
-
-    templates["result"] = Z.copy()
-    templatesIN["result"] = True if algo.convert(templatesIN["result"], len(Z)) == algo.convert(templates["result"], len(Z)) else False
-
-    with open(ret_json, 'w') as output:
-        json.dump(templates, output)
+def form_json8(ret_json, in_json):
+    ret_json = clear_json(ret_json, "app_project/json_post/format_div_json.json")
+    templates, templatesIN = solver.form_json_no_tail_rest_Remain(ret_json, in_json)
+    templates, templatesIN = solver.no_tail_rest_Divider(ret_json, in_json)
+    templates, templatesIN = solver.tail_restore(ret_json, in_json)
 
     return [templates, templatesIN]
 
