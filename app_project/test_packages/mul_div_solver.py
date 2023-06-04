@@ -450,7 +450,7 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
 
         templatesIN["first"]["Z"] = True if templatesIN["first"]["Z"] == templates["first"]["Z"] else False
     templates["first"]["result"] = Z.copy()
-    if templatesIN["first"]["result"] != "":
+    if templatesIN["first"]["result"] != []:
         templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(Z)) == algo.convert(templates["first"]["result"], len(Z)) else False
 
     with open(ret_json, 'w') as output:
@@ -517,7 +517,7 @@ def no_tail_rest_Divider(ret_json, in_json):
         templatesIN["second"]["Z"] = True if templatesIN["second"]["Z"] == templates["second"]["Z"] else False
 
     templates["second"]["result"] = Z.copy()
-    if templatesIN["second"]["result"] != "":
+    if templatesIN["second"]["result"] != []:
         templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"], len(Z)) == algo.convert(
             templates["second"]["result"], len(Z)) else False
 
@@ -582,7 +582,7 @@ def tail_restore(ret_json, in_json):
         Z = algo.rev(algo.convert(Z, len(Z)), len(Z))
 
     templates["third"]["result"] = Z.copy()
-    if templatesIN["third"]["result"] != "":
+    if templatesIN["third"]["result"] != []:
         templatesIN["third"]["result"] = True if algo.convert(templatesIN["third"]["result"], len(Z)) == algo.convert(
             templates["third"]["result"], len(Z)) else False
 
