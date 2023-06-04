@@ -98,9 +98,11 @@ def form_json2(ret_json, in_json):
 
     templates["Fsdnf"] = Fsdnf
     templates["Fsknf"] = Fsknf
+    in_sdnf = templatesIN["Fsdnf"].split(" v ")
+    in_sknf = templatesIN["Fsknf"].split(" & ")
 
-    in_sdnf = templatesIN["Fsdnf"].copy()
-    in_sknf = templatesIN["Fsknf"].copy()
+    print(in_sdnf)
+    print(in_sknf)
     if templatesIN["Fsdnf"] != []:
         templatesIN["Fsdnf"] = True if f.token_sort_ratio(templatesIN["Fsdnf"], templates["Fsdnf"]) == 100 else False
         if templatesIN["Fsdnf"]: count += 10
@@ -143,6 +145,9 @@ def form_json2(ret_json, in_json):
 
     templates["carno_tdnf"] = Tdnf
     templates["carno_tknf"] = Tknf
+
+    print(Tdnf, "- Тупиковая ДНФ")
+    print(Tknf, "- Тупиковая КНФ")
 
     if templatesIN["Base"] != "":
         if f.token_sort_ratio(templatesIN["Base"], templatesIN["carno_tdnf"]) == 100 or \
@@ -245,7 +250,6 @@ def form_json3(ret_json, in_json):
 
     q = templates["A_var"]
     w = templates["B_var"]
-
     templates["A"]["str"] = convert(q)
     templatesIN['A']['str'] = True if templatesIN['A']['str'] == templates["A"]["str"] else False
     if templatesIN['A']['str']: count += 1
