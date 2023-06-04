@@ -394,7 +394,6 @@ def adjacent_digits(ret_json, in_json):
 
 def form_json_no_tail_rest_Remain(ret_json, in_json):
     algo.bit_depth = 8
-
     count = 0
 
     with open(ret_json) as f1:
@@ -411,7 +410,6 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
 
     Z = []
     S = []
-
     minYdop = algo.Fullreverse(dopY.copy())
     minYdop = algo.addition(minYdop, ['1'], code='dop', bits=len(minYdop))
 
@@ -424,7 +422,7 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
                 Z.append("0")
             S = algo.shift(S, 'dop', 1, ignore=True)
             S[-1] = X[0]
-            templates["Z"].append(Z[0])
+            templates["first"]["Z"].append(Z[0])
         if S[0] == '1':
             S = algo.addition(S, Y.copy(), len(X) * 2 - 1, code='dop', kr=3)
             S = algo.shift(S, 'dop', 1, ignore=True)
@@ -441,7 +439,6 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
                 Z.append('1')
             else:
                 Z.append('0')
-
         templates["first"]["Z"].append(Z[-1])
 
         templates["first"]["S"]["S" + str(i + 1)] = S.copy()
@@ -452,7 +449,6 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
             templates["first"]["S"]["S" + str(i + 1)], len(S)) else False
 
         templatesIN["first"]["Z"] = True if templatesIN["first"]["Z"] == templates["first"]["Z"] else False
-
     templates["first"]["result"] = Z.copy()
     if templatesIN["first"]["result"] != "":
         templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(Z)) == algo.convert(templates["first"]["result"], len(Z)) else False
@@ -532,7 +528,6 @@ def no_tail_rest_Divider(ret_json, in_json):
 
 def tail_restore(ret_json, in_json):
     algo.bit_depth = 8
-
     count = 0
 
     with open(ret_json) as f1:
@@ -541,6 +536,7 @@ def tail_restore(ret_json, in_json):
 
     x = templatesIN["third"]["X"]
     y = templatesIN["third"]["Y"]
+
 
     X = algo.convert(x, algo.bit_depth / 2 + 1)
     Y = algo.convert(y, algo.bit_depth / 2 + 1)
