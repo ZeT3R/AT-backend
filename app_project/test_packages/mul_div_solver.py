@@ -50,10 +50,11 @@ def form_json_Boota(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
-
+    result_save = templatesIN["first"]["result"]
+    templatesIN["first"]["result"] = False
     templates["first"]["result"] = S.copy()
-    if templatesIN["first"]["result"] != [] and templatesIN["first"]["result"] != "":
-        templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"]) == algo.convert(templates["first"]["result"]) else False
+    if result_save != [] and result_save != "":
+        templatesIN["first"]["result"] = True if algo.convert(result_save) == algo.convert(templates["first"]["result"]) else False
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -126,10 +127,11 @@ def form_json_two_bits(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.rev(algo.convert(S, len(S)), len(S))
-
+    result_save = templatesIN["second"]["result"]
+    templatesIN["second"]["result"] = False
     templates["second"]["result"] = S.copy()
-    if templatesIN["second"]["result"] != [] and templatesIN["second"]["result"] != "":
-        templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"]) == algo.convert(templates["second"]["result"]) else False
+    if result_save != [] and result_save != "":
+        templatesIN["second"]["result"] = True if algo.convert(result_save) == algo.convert(templates["second"]["result"]) else False
 
 
 
@@ -187,8 +189,10 @@ def form_json_section_multiply(ret_json, in_json):
         S = algo.rev(algo.convert(S, len(S)), len(S))
 
     templates["first"]["result"] = S.copy()
-    if templatesIN["first"]["result"] != [] and templatesIN["first"]["result"] != "":
-        templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(S)) == algo.convert(templates["first"]["result"], len(S)) else False
+    result_save = templatesIN["first"]["result"]
+    templatesIN["first"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["first"]["result"] = True if algo.convert(result_save, len(S)) == algo.convert(templates["first"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -248,8 +252,10 @@ def corr_steps_rev(ret_json, in_json):
         S = algo.rev(algo.convert(S, len(S)), len(S))
 
     templates["second"]["result"] = S.copy()
-    if templatesIN["second"]["result"] != [] and templatesIN["second"]["result"] != "":
-        templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"], len(S)) == algo.convert(
+    result_save = templatesIN["second"]["result"]
+    templatesIN["second"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["second"]["result"] = True if algo.convert(result_save, len(S)) == algo.convert(
             templates["second"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
@@ -309,8 +315,10 @@ def form_json_dop_corr_step(ret_json, in_json):
         S = algo.dop(algo.convert(S, len(S)), len(S))
 
     templates["first"]["result"] = S.copy()
-    if templatesIN["first"]["result"] != [] and templatesIN["first"]["result"] != "":
-        templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(S)) == algo.convert(templates["first"]["result"], len(S)) else False
+    result_save = templatesIN["first"]["result"]
+    templatesIN["first"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["first"]["result"] = True if algo.convert(result_save, len(S)) == algo.convert(templates["first"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -370,8 +378,10 @@ def adjacent_digits(ret_json, in_json):
         S = algo.dop(algo.convert(S, len(S)), len(S))
 
     templates["second"]["result"] = S.copy()
-    if templatesIN["second"]["result"] != [] and templatesIN["second"]["result"] != "":
-        templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"], len(S)) == algo.convert(templates["second"]["result"], len(S)) else False
+    result_save = templatesIN["second"]["result"]
+    templatesIN["second"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["second"]["result"] = True if algo.convert(result_save, len(S)) == algo.convert(templates["second"]["result"], len(S)) else False
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -450,8 +460,10 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
 
         templatesIN["first"]["Z"] = True if templatesIN["first"]["Z"] == templates["first"]["Z"] else False
     templates["first"]["result"] = Z.copy()
-    if templatesIN["first"]["result"] != [] and templatesIN["first"]["result"] != "":
-        templatesIN["first"]["result"] = True if algo.convert(templatesIN["first"]["result"], len(Z)) == algo.convert(templates["first"]["result"], len(Z)) else False
+    result_save = templatesIN["first"]["result"]
+    templatesIN["first"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["first"]["result"] = True if algo.convert(result_save, len(Z)) == algo.convert(templates["first"]["result"], len(Z)) else False
 
     with open(ret_json, 'w') as output:
         json.dump(templates, output)
@@ -517,8 +529,10 @@ def no_tail_rest_Divider(ret_json, in_json):
         templatesIN["second"]["Z"] = True if templatesIN["second"]["Z"] == templates["second"]["Z"] else False
 
     templates["second"]["result"] = Z.copy()
-    if templatesIN["second"]["result"] != [] and templatesIN["second"]["result"] != "":
-        templatesIN["second"]["result"] = True if algo.convert(templatesIN["second"]["result"], len(Z)) == algo.convert(
+    result_save = templatesIN["second"]["result"]
+    templatesIN["second"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["second"]["result"] = True if algo.convert(result_save, len(Z)) == algo.convert(
             templates["second"]["result"], len(Z)) else False
 
     with open(ret_json, 'w') as output:
@@ -582,8 +596,10 @@ def tail_restore(ret_json, in_json):
         Z = algo.rev(algo.convert(Z, len(Z)), len(Z))
 
     templates["third"]["result"] = Z.copy()
-    if templatesIN["third"]["result"] != [] and templatesIN["third"]["result"] != "":
-        templatesIN["third"]["result"] = True if algo.convert(templatesIN["third"]["result"], len(Z)) == algo.convert(
+    result_save = templatesIN["third"]["result"]
+    templatesIN["third"]["result"] = False
+    if result_save != [] and result_save != "":
+        templatesIN["third"]["result"] = True if algo.convert(result_save, len(Z)) == algo.convert(
             templates["third"]["result"], len(Z)) else False
 
     with open(ret_json, 'w') as output:
