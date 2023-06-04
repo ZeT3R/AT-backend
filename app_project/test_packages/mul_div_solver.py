@@ -121,7 +121,7 @@ def form_json_two_bits(ret_json, in_json):
         S = algo.addition(S, X.copy(), len(X) * 2 - 1, code='str' if S[0] == '0' else 'rev', kr=3)
 
     templates["second"]["S"]["correct"] = S.copy()
-    if templatesIN["second"]["S"]["correct"] != "":
+    if templatesIN["second"]["S"]["correct"] != []:
         templatesIN["second"]["S"]["correct"] = True if algo.convert(templatesIN["second"]["S"]["correct"]) == algo.convert(templates["second"]["S"]["correct"]) else False
 
     if S[0] == '1':
@@ -240,7 +240,7 @@ def corr_steps_rev(ret_json, in_json):
         S = algo.addition(S, revX, len(X) * 2 - 1, code='rev', kr=3)
 
     templates["second"]["S"]["correct"] = S.copy()
-    if templatesIN["second"]["S"]["correct"] != "":
+    if templatesIN["second"]["S"]["correct"] != []:
         templatesIN["second"]["S"]["correct"] = True if algo.convert(
             templatesIN["second"]["S"]["correct"]) == algo.convert(templates["second"]["S"]["correct"]) else False
 
