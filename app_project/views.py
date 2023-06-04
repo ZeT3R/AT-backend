@@ -338,6 +338,12 @@ def kr5():
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
+@app.route('/api/trainer5', methods=['POST'])
+@cross_origin()
+def trainer5():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json5(start_json, data)
+    return {"right": right_answers, "checked": check_user_answers}
 
 @app.route('/api/kr6', methods=['POST'])
 @cross_origin()
@@ -358,6 +364,12 @@ def kr6():
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
+@app.route('/api/trainer6', methods=['POST'])
+@cross_origin()
+def trainer6():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json6(start_json, data)
+    return {"right": right_answers, "checked": check_user_answers}
 
 @app.route('/api/kr7', methods=['POST'])
 @cross_origin()
@@ -378,6 +390,12 @@ def kr7():
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
+@app.route('/api/trainer7', methods=['POST'])
+@cross_origin()
+def trainer7():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json7(start_json, data)
+    return {"right": right_answers, "checked": check_user_answers}
 
 @app.route('/api/kr8', methods=['POST'])
 @cross_origin()
@@ -398,6 +416,12 @@ def kr8():
         db.session.commit()
     return {"right": right_answers, "checked": check_user_answers}
 
+@app.route('/api/trainer8', methods=['POST'])
+@cross_origin()
+def trainer8():
+    data = request.get_json()
+    right_answers, check_user_answers = form_json.form_json8(start_json, data)
+    return {"right": right_answers, "checked": check_user_answers}
 
 @app.route('/api/event', methods=['GET', 'POST', 'PUT'])
 @cross_origin()

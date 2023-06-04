@@ -1,19 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.e4a0ae60.css",
-    "main.js": "/static/js/main.ba16d331.js",
+    "main.css": "/static/css/main.74da3da1.css",
+    "main.js": "/static/js/main.823a5f21.js",
     "static/media/bmstu-logo.svg": "/static/media/bmstu-logo.374be65eb7443502961e9fe8fa40937e.svg",
     "static/media/efremov.jpg": "/static/media/efremov.f30109c17f466b33a819.jpg",
     "static/media/img1.jpg": "/static/media/img1.b57664e1c4d22b79cb58.jpg",
-    "static/media/img4.jpg": "/static/media/img4.be24f4a6b054544cb31c.jpg",
-    "static/media/img2.jpg": "/static/media/img2.7c10e3bc9bb30bad4a8d.jpg",
-    "static/media/img3.jpg": "/static/media/img3.de0e3c1a45b400c03198.jpg",
-    "static/media/img5.jpg": "/static/media/img5.f969c0c908814bc63dd3.jpg",
-    "static/media/img6.jpg": "/static/media/img6.fd49d2e1079f0f8f8a02.jpg",
+    "static/media/img11.jpg": "/static/media/img11.0edccbf8f2ad8824f7ac.jpg",
+    "static/media/img12.jpg": "/static/media/img12.bd5be05830aa4e43455e.jpg",
+    "static/media/img2.jpg": "/static/media/img2.1dcf1f3efa4258e4aae6.jpg",
+    "static/media/img8.jpg": "/static/media/img8.6dd0145f1ece779c9b8e.jpg",
+    "static/media/img4.jpg": "/static/media/img4.12a16130ba7976cd6b9a.jpg",
+    "static/media/img3.jpg": "/static/media/img3.983271d2128fb7f50c07.jpg",
+    "static/media/img5.jpg": "/static/media/img5.a0df54bc741575ec4514.jpg",
     "static/media/img7.jpg": "/static/media/img7.2e74a95dbd62d40f1975.jpg",
-    "static/media/img8.jpg": "/static/media/img8.79944148d6e31f90b593.jpg",
+    "static/media/img6.jpg": "/static/media/img6.cff762ab977869c8af44.jpg",
     "static/media/img13.jpg": "/static/media/img13.c3f1fc428da829d696fd.jpg",
     "static/media/img9.jpg": "/static/media/img9.ad57d696dadad7f283cb.jpg",
+    "static/media/img10.jpg": "/static/media/img10.c965fd2d631b70eb5d23.jpg",
     "static/media/segments.jpg": "/static/media/segments.c96525fc59104205313c.jpg",
     "static/media/vk.svg": "/static/media/vk.850661cb96f2301a86d9daee7474ea15.svg",
     "static/media/user.svg": "/static/media/user.fd1dd7c232b1b2603656f2a129c49cc1.svg",
@@ -24,11 +27,11 @@
     "static/media/edit.svg": "/static/media/edit.6344e1d79b07fcb55e064ec515802bbc.svg",
     "static/media/telegram.svg": "/static/media/telegram.71c9cb6ebbbe700ea01f21ce48853cbf.svg",
     "static/media/close.svg": "/static/media/close.712cc7618fd46c5eb8309c8c527f3284.svg",
-    "main.e4a0ae60.css.map": "/static/css/main.e4a0ae60.css.map",
-    "main.ba16d331.js.map": "/static/js/main.ba16d331.js.map"
+    "main.74da3da1.css.map": "/static/css/main.74da3da1.css.map",
+    "main.823a5f21.js.map": "/static/js/main.823a5f21.js.map"
   },
   "entrypoints": [
-    "static/css/main.e4a0ae60.css",
-    "static/js/main.ba16d331.js"
+    "static/css/main.74da3da1.css",
+    "static/js/main.823a5f21.js"
   ]
 }
