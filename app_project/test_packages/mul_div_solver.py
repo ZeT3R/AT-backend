@@ -457,8 +457,8 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
 
             templatesIN["first"]["S"]["S" + str(i + 1)] = True if algo.convert(templatesIN["first"]["S"]["S" + str(i + 1)], len(S)) == algo.convert(
             templates["first"]["S"]["S" + str(i + 1)], len(S)) else False
-
-        templatesIN["first"]["Z"] = True if templatesIN["first"]["Z"] == templates["first"]["Z"] else False
+        if templatesIN["first"]["Z"] != [] and templatesIN["first"]["Z"] != "":
+            templatesIN["first"]["Z"] = True if templatesIN["first"]["Z"] == templates["first"]["Z"] else False
     templates["first"]["result"] = Z.copy()
     result_save = templatesIN["first"]["result"]
     templatesIN["first"]["result"] = False
@@ -525,8 +525,8 @@ def no_tail_rest_Divider(ret_json, in_json):
             templatesIN["second"]["S"]["S" + str(i + 1)] = True if algo.convert(
                 templatesIN["second"]["S"]["S" + str(i + 1)], len(S)) == algo.convert(
                 templates["second"]["S"]["S" + str(i + 1)], len(S)) else False
-
-        templatesIN["second"]["Z"] = True if templatesIN["second"]["Z"] == templates["second"]["Z"] else False
+        if templatesIN["second"]["Z"] != [] and templatesIN["second"]["Z"] != "":
+            templatesIN["second"]["Z"] = True if templatesIN["second"]["Z"] == templates["second"]["Z"] else False
 
     templates["second"]["result"] = Z.copy()
     result_save = templatesIN["second"]["result"]
@@ -589,8 +589,8 @@ def tail_restore(ret_json, in_json):
             templatesIN["third"]["S"]["S" + str(i + 1)] = True if algo.convert(
                 templatesIN["third"]["S"]["S" + str(i + 1)], len(S)) == algo.convert(
                 templates["third"]["S"]["S" + str(i + 1)], len(S)) else False
-
-        templatesIN["third"]["Z"] = True if templatesIN["third"]["Z"] == templates["third"]["Z"] else False
+        if templatesIN["third"]["Z"] != [] and templatesIN["third"]["Z"] != "":
+            templatesIN["third"]["Z"] = True if templatesIN["third"]["Z"] == templates["third"]["Z"] else False
 
     if Z[0] == '1':
         Z = algo.rev(algo.convert(Z, len(Z)), len(Z))
