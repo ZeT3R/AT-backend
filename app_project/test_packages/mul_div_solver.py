@@ -50,6 +50,10 @@ def form_json_Boota(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
+    templates["first"]["S"]["correct"] = S.save()
+    if templatesIN["first"]["S"]["correct"] != [] and templatesIN["first"]["S"]["correct"] != "":
+        templatesIN["first"]["S"]["correct"] = True if algo.convert(templatesIN["first"]["S"]["correct"]) == algo.convert(templates["first"]["S"]["correct"]) else False
+
     result_save = templatesIN["first"]["result"]
     templatesIN["first"]["result"] = False
     templates["first"]["result"] = S.copy()
@@ -187,6 +191,9 @@ def form_json_section_multiply(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.rev(algo.convert(S, len(S)), len(S))
+    templates["first"]["S"]["correct"] = S.save()
+    if templatesIN["first"]["S"]["correct"] != [] and templatesIN["first"]["S"]["correct"] != "":
+        templatesIN["first"]["S"]["correct"] = True if algo.convert(templatesIN["first"]["S"]["correct"]) == algo.convert(templates["first"]["S"]["correct"]) else False
 
     templates["first"]["result"] = S.copy()
     result_save = templatesIN["first"]["result"]
@@ -313,6 +320,9 @@ def form_json_dop_corr_step(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
+    templates["first"]["S"]["correct"] = S.save()
+    if templatesIN["first"]["S"]["correct"] != [] and templatesIN["first"]["S"]["correct"] != "":
+        templatesIN["first"]["S"]["correct"] = True if algo.convert(templatesIN["first"]["S"]["correct"]) == algo.convert(templates["first"]["S"]["correct"]) else False
 
     templates["first"]["result"] = S.copy()
     result_save = templatesIN["first"]["result"]
@@ -376,6 +386,9 @@ def adjacent_digits(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
+    templates["second"]["S"]["correct"] = S.save()
+    if templatesIN["second"]["S"]["correct"] != [] and templatesIN["second"]["S"]["correct"] != "":
+        templatesIN["second"]["S"]["correct"] = True if algo.convert(templatesIN["second"]["S"]["correct"]) == algo.convert(templates["second"]["S"]["correct"]) else False
 
     templates["second"]["result"] = S.copy()
     result_save = templatesIN["second"]["result"]
@@ -427,7 +440,8 @@ def form_json_no_tail_rest_Remain(ret_json, in_json):
         if i == 0:
             S = algo.addition(X.copy(), minYdop.copy(), len(X) * 2 - 1, code='dop', kr=3)
             if S[0] == '0':
-                exit("Overflow")
+                if templatesIN["first"]["S"]["S" + str(i + 1)] != "" and templatesIN["first"]["S"]["S" + str(i + 1)] != []:
+                    exit("Overflow")
             else:
                 Z.append("0")
             S = algo.shift(S, 'dop', 1, ignore=True)
@@ -499,7 +513,9 @@ def no_tail_rest_Divider(ret_json, in_json):
         if i == 0:
             S = algo.addition(X.copy(), minYdop.copy(), len(X) * 2 - 1, code='dop', kr=3)
             if S[0] == '0':
-                exit("Overflow")
+                if templatesIN["second"]["S"]["S" + str(i + 1)] != "" and templatesIN["second"]["S"][
+                    "S" + str(i + 1)] != []:
+                    exit("Overflow")
             else:
                 Z.append("0")
         minYdop.insert(1, minYdop[0])
@@ -570,7 +586,9 @@ def tail_restore(ret_json, in_json):
                 Z.append('0')
                 S = algo.addition(S, Y.copy(), len(X) * 2 - 1, code='dop', kr=3)
             else:
-                exit("Overflow")
+                if templatesIN["third"]["S"]["S" + str(i + 1)] != "" and templatesIN["third"]["S"][
+                    "S" + str(i + 1)] != []:
+                    exit("Overflow")
         minYdop.insert(1, minYdop[0])
         S.append("0")
         S = algo.addition(S, minYdop.copy(), len(X) * 2 - 1, code="dop", kr=3)
