@@ -50,9 +50,6 @@ def form_json_Boota(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
-    templates["first"]["S"]["correct"] = S.save()
-    if templatesIN["first"]["S"]["correct"] != [] and templatesIN["first"]["S"]["correct"] != "":
-        templatesIN["first"]["S"]["correct"] = True if algo.convert(templatesIN["first"]["S"]["correct"]) == algo.convert(templates["first"]["S"]["correct"]) else False
 
     result_save = templatesIN["first"]["result"]
     templatesIN["first"]["result"] = False
@@ -191,9 +188,6 @@ def form_json_section_multiply(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.rev(algo.convert(S, len(S)), len(S))
-    templates["first"]["S"]["correct"] = S.save()
-    if templatesIN["first"]["S"]["correct"] != [] and templatesIN["first"]["S"]["correct"] != "":
-        templatesIN["first"]["S"]["correct"] = True if algo.convert(templatesIN["first"]["S"]["correct"]) == algo.convert(templates["first"]["S"]["correct"]) else False
 
     templates["first"]["result"] = S.copy()
     result_save = templatesIN["first"]["result"]
@@ -320,9 +314,6 @@ def form_json_dop_corr_step(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
-    templates["first"]["S"]["correct"] = S.save()
-    if templatesIN["first"]["S"]["correct"] != [] and templatesIN["first"]["S"]["correct"] != "":
-        templatesIN["first"]["S"]["correct"] = True if algo.convert(templatesIN["first"]["S"]["correct"]) == algo.convert(templates["first"]["S"]["correct"]) else False
 
     templates["first"]["result"] = S.copy()
     result_save = templatesIN["first"]["result"]
@@ -386,9 +377,6 @@ def adjacent_digits(ret_json, in_json):
 
     if S[0] == '1':
         S = algo.dop(algo.convert(S, len(S)), len(S))
-    templates["second"]["S"]["correct"] = S.save()
-    if templatesIN["second"]["S"]["correct"] != [] and templatesIN["second"]["S"]["correct"] != "":
-        templatesIN["second"]["S"]["correct"] = True if algo.convert(templatesIN["second"]["S"]["correct"]) == algo.convert(templates["second"]["S"]["correct"]) else False
 
     templates["second"]["result"] = S.copy()
     result_save = templatesIN["second"]["result"]
